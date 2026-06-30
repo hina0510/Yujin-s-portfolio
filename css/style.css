@@ -510,8 +510,8 @@ header {
   align-items: center;
   justify-content: center;
   flex: 1;
-  min-height: 100px;
-  max-width: 120px;
+  max-height: 60px;
+  max-width: 60px;
   border-radius: 14px;
   background-color: #D9D7D7;
   overflow: hidden;
@@ -1235,6 +1235,12 @@ header {
   gap: 20px;
 }
 
+/* 프로젝트 소개 탭: PC 2×2 그리드 */
+.detail-content__tab-pane[data-pane="overview"] .detail-content__info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
 .detail-content__info-card {
   background: var(--panel-strong);
   border: 1px solid var(--border);
@@ -1291,6 +1297,46 @@ header {
   display: block;
 }
 
+/* 주요 기능 탭 레이아웃 */
+.detail-content__feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.detail-content__feature-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.detail-content__feature-img {
+  background-color: #D9D7D7;
+  border-radius: 18px;
+  aspect-ratio: 3/4;
+}
+
+.detail-content__feature-item[data-direction="right"] .detail-content__feature-img {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.detail-content__feature-item[data-direction="right"] .detail-content__info-card {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.detail-content__feature-item[data-direction="down"] .detail-content__feature-img {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.detail-content__feature-item[data-direction="down"] .detail-content__info-card {
+  grid-column: 2;
+  grid-row: 2;
+}
+
 
 /* =================================================
   08. RESPONSIVE
@@ -1313,6 +1359,26 @@ header {
   .contact-grid,
   .detail-content__info-grid {
     grid-template-columns: 1fr;
+  }
+
+  .detail-content__tab-pane[data-pane="overview"] .detail-content__info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-content__feature-item {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-content__feature-item[data-direction="right"] .detail-content__feature-img,
+  .detail-content__feature-item[data-direction="down"] .detail-content__feature-img {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .detail-content__feature-item[data-direction="right"] .detail-content__info-card,
+  .detail-content__feature-item[data-direction="down"] .detail-content__info-card {
+    grid-column: 1;
+    grid-row: 2;
   }
 
   .modal-dialog {
