@@ -261,20 +261,44 @@ header {
 /* =================================================
   03. INDEX MAIN
 ================================================= */
-#profile {
+.portfolio-page {
+  width: 100%;
   max-width: 1400px;
-  min-height: 100vh;
+  opacity: 0;
   margin: 0 auto;
-  padding: 180px 60px 70px;
-  background-color: #fff;
+  padding: 0 24px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
 }
 
+.portfolio-page.show {
+  opacity: 1;
+  transition: 0.8s;
+}
+
+#profile {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 85px 60px 75px;
+  background-color: #fff;
+  gap: 30px;
+}
+
+.introduce{
+  text-align: center;
+}
 /* Profile — 1:1:1 grid (소개/학력 | 사진 | Skill) */
 .profile-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: minmax(0, 2fr) minmax(0, 1fr);
-  gap: 1.2rem;
+  gap: 30px;
   width: 100%;
   min-height: calc(60vh - 6rem);
 }
@@ -374,7 +398,7 @@ header {
 
 /* Mockup Section */
 .mockup-section {
-  max-width: 1400px;
+  width: 100%;
   min-height: 100vh;
   margin: 0 auto;
   padding: 100px 60px;
@@ -428,7 +452,6 @@ header {
 
 /* Banner Section */
 .banner-section {
-  max-width: 1400px;
   min-height: 100vh;
   margin: 0 auto;
   padding: 100px 0;
@@ -640,20 +663,7 @@ header {
 
 /* Project Preview */
 
-.portfolio-page {
-  opacity: 0;
-  padding: 72px 24px 48px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 48px;
-}
 
-.portfolio-page.show {
-  opacity: 1;
-  transition: 0.8s;
-}
 
 .page-intro {
   text-align: center;
@@ -689,9 +699,9 @@ header {
   04. PROJECT SECTION
 ================================================= */
 .project-preview {
+  width: 100%;
   padding: 100px 0;
   width: 100%;
-  max-width: 1400px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -1060,8 +1070,14 @@ header {
 
 /* Mobile */
 @media screen and (max-width: 480px) {
-  #portfolio-main {
-    padding: 80px 20px 50px;
+  .portfolio-page {
+    max-width: 480px;
+    padding: 40px 12px 28px;
+    gap: 32px;
+  }
+
+  .logo {
+    width: 180px;
   }
 
   .header-inner {
@@ -1072,53 +1088,72 @@ header {
     width: min(260px, 80vw);
   }
 
-  .mockup-section {
-    padding: 60px 10px;
-  }
-
-  .mockup-grid {
-    grid-template-columns: repeat(28, 2px);
-    grid-template-rows: repeat(21, 2px);
-    gap: 0.7rem;
-  }
-
-  .mockup-1 img { width: 116px; }
-  .mockup-2 img { width: 52px; }
-  .mockup-3 img { width: 52px; }
-  .mockup-4 img { width: 96px; }
-  .mockup-5 img { width: 52px; }
-  .mockup-6 img { width: 260px; }
-  .mockup-7 img { width: 52px; }
-
   .profile-grid {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     min-height: auto;
   }
 
+  /* 5. 모바일 profile 순서: profile-box → intro-box → study-box → skill-box
+   * 수정 위치: css/style.css — @media (max-width: 480px)
+   * display:contents로 .col-left를 "투명"하게 만들어 자식이 grid에 직접 참여하게 합니다. */
+  
+  #profile{
+    padding: 0;
+  }
   .col-left {
+    display: contents;
+  }
+  #profile .profile-box {
     grid-column: 1;
     grid-row: auto;
+    order: 1;
   }
+  /* .profile-img {} */
 
-  #portfolio-main .profile-box,
-  #portfolio-main .skill-box {
-    grid-column: 1;
-    grid-row: auto;
-  }
-
-  #portfolio-main .intro-box,
-  #portfolio-main .study-box {
-    flex: none;
+  #profile .intro-box {
+    order: 2;
     min-height: 100px;
   }
 
-  #portfolio-main .study-box {
+  #profile .study-box {
+    order: 3;
     min-height: 70px;
   }
 
-  .profile-img {
-    max-width: 120px;
+  #profile .skill-box {
+    grid-column: 1;
+    grid-row: auto;
+    order: 4;
+  }
+
+  .mockup-section {
+    padding: 60px 10px;
+  }
+
+  .mockup-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    justify-content: center;
+  }
+
+  .mockup-item {
+    overflow: hidden;
+  }
+
+  .mockup-1 { order: 1; width: 100%; }
+  .mockup-2 { order: 2; width: calc(50% - 0.35rem); }
+  .mockup-3 { order: 3; width: calc(50% - 0.35rem); }
+  .mockup-4 { order: 4; width: 100%; }
+  .mockup-5 { order: 5; width: calc(50% - 0.35rem); }
+  .mockup-7 { order: 6; width: calc(50% - 0.35rem); }
+  .mockup-6 { order: 7; width: 100%; }
+
+  .mockup-1 img, .mockup-2 img, .mockup-3 img,
+  .mockup-4 img, .mockup-5 img, .mockup-6 img, .mockup-7 img {
+    width: 100%;
+    height: auto;
   }
 
   .banner-inner {
@@ -1202,6 +1237,37 @@ header {
     width: 100%;
     aspect-ratio: auto;
     padding: 24px;
+  }
+
+  
+  .project-section h2,
+  .contact-card h3 {
+    font-size: 12px;
+  }
+
+  .project-section p,
+  .contact-card p,
+  .detail-content__summary,
+  .detail-content__info-card p {
+    font-size: 0.9rem;
+  }
+
+  .modal-overlay {
+    padding: 12px;
+  }
+
+  .modal-dialog {
+    max-height: 90vh;
+    padding: 24px;
+    border-radius: 20px;
+  }
+
+  .detail-content {
+    gap: 24px;
+  }
+
+  .detail-content__header h2 {
+    font-size: 1.4rem;
   }
 }
 
@@ -1463,44 +1529,7 @@ header {
 }
 
 @media (max-width: 480px) {
-  .portfolio-page {
-    padding: 40px 12px 28px;
-    gap: 32px;
-  }
-
-  .logo {
-    width: 180px;
-  }
-
-  .project-section h2,
-  .contact-card h3 {
-    font-size: 1.2rem;
-  }
-
-  .project-section p,
-  .contact-card p,
-  .detail-content__summary,
-  .detail-content__info-card p {
-    font-size: 0.9rem;
-  }
-
-  .modal-overlay {
-    padding: 12px;
-  }
-
-  .modal-dialog {
-    max-height: 90vh;
-    padding: 24px;
-    border-radius: 20px;
-  }
-
-  .detail-content {
-    gap: 24px;
-  }
-
-  .detail-content__header h2 {
-    font-size: 1.4rem;
-  }
+  
 }
 
 .splash-cover.is-hide {

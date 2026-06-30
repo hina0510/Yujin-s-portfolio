@@ -55,6 +55,7 @@ function setActiveNav(navId) {
 }
 
 const mockupOrder = [6, 1, 4, 3, 5, 2, 7];
+const mobileOrder = [1, 2, 3, 4, 5, 7, 6];
 
   const mockupFrom = {
     1: { xPercent: -120, yPercent: 0 }, // 왼쪽
@@ -64,6 +65,16 @@ const mockupOrder = [6, 1, 4, 3, 5, 2, 7];
     5: { xPercent: 0, yPercent: 120 },  // 아래
     6: { xPercent: 0, yPercent: 120 },   // 오른쪽
     7: { xPercent: 0, yPercent: 120 }
+  };
+
+  const mobileFrom = {
+    1: { xPercent: -120, yPercent: 0 },
+    2: { xPercent: -120, yPercent: 0 },
+    3: { xPercent: 120, yPercent: 0 },
+    4: { xPercent: 120, yPercent: 0 },
+    5: { xPercent: -120, yPercent: 0 },
+    6: { xPercent: -120, yPercent: 0 },
+    7: { xPercent: 120, yPercent: 0 }
   };
 gsap.registerPlugin(ScrollTrigger);
 
@@ -97,6 +108,10 @@ function initPageAnimations() {
 
     gsap.killTweensOf(".mockup-item");
 
+    const mobile = window.innerWidth <= 480;
+    const order = mobile ? mobileOrder : mockupOrder;
+    const from = mobile ? mobileFrom : mockupFrom;
+
     const mockupTimeline = gsap.timeline({
       defaults: {
         duration: 0.7,
@@ -107,11 +122,11 @@ function initPageAnimations() {
       }
     });
 
-    mockupOrder.forEach((num, index) => {
+    order.forEach((num, index) => {
       const el = document.querySelector(`[data-mockup="${num}"]`);
       if (!el) return;
 
-      const fromVars = mockupFrom[num];
+      const fromVars = from[num];
 
       mockupTimeline.fromTo(
         el,
