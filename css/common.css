@@ -1,0 +1,39 @@
+html{scroll-behavior: smooth;}
+body{
+  line-height: 1.5;
+  color: #333;
+}
+/*
+#D3ED8C
+#81C7B1
+#364B44
+#90BEEA
+ */
+
+.goto-top{
+  position: fixed;
+  right: 20px;
+  bottom: 70px;
+  font-size: 18px;
+  padding: 2px 5px 2px;
+  border: 3px solid #333;
+  color: #333;
+  border-radius: 10px;
+  background-color: #ffffff;
+  z-index: 1;
+}
+.goto-bottom{
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  font-size: 18px;
+  padding: 2px 5px 2px;
+  border: 3px solid #333;
+  color: #333;
+  border-radius: 10px;
+  background-color: #ffffff;
+  z-index: 1;
+}
+.goto-bottom i{
+  transform: translateY(1px);
+}

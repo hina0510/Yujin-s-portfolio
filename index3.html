@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>portfolio</title>
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body class="intro-active">
+
+  <div id="site-intro" class="site-intro" aria-label="인트로">
+    <div class="site-intro-inner">
+      <div class="site-intro-logo" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <template id="intro-logo-template">
+    <svg class="logo" viewBox="0 0 300 320" xmlns="http://www.w3.org/2000/svg" aria-label="YJ logo">
+      <style>
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        .logo-line {
+          fill: none;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-width: 30;
+        }
+
+        .black-line {
+          stroke: #2f3130;
+        }
+
+        .green-line {
+          stroke: #92e243;
+        }
+
+        .black-mask {
+          animation: revealBlack 0.9s ease forwards;
+        }
+        .black-cover {
+          stroke: #2f3130;
+          fill: none;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-width: 30;
+
+          opacity: 0;
+          animation: showCover 0.01s forwards;
+          animation-delay: 0.9s;
+        }
+
+        .green-mask {
+          animation: revealGreen 0.9s ease forwards;
+          animation-delay: 0.8s;
+        }
+
+        .logo-dot {
+          fill: #fff500;
+          opacity: 0;
+          transform-box: fill-box;
+          transform-origin: center;
+          transform: translateY(-90px);
+          animation: dropDot 0.65s cubic-bezier(.34, 1.56, .64, 1) forwards;
+          animation-delay: 1.8s;
+        }
+
+        @keyframes revealBlack {
+          from {
+            y: 320px;
+          }
+
+          to {
+            y: 0;
+          }
+        }
+
+        @keyframes revealGreen {
+          from {
+            y: 320px;
+          }
+
+          to {
+            y: 0;
+          }
+        }
+        @keyframes showCover {
+          to {
+            opacity: 1;
+          }
+        }
+
+        @keyframes dropDot {
+          0% {
+            opacity: 0;
+            transform: translateY(-90px);
+          }
+
+          100% {
+            opacity: 1;
+            transform: translateY(25px);
+          }
+        }
+      </style>
+      <defs>
+        <clipPath id="blackClip">
+          <rect class="black-mask" x="0" y="320" width="300" height="320"></rect>
+        </clipPath>
+
+        <clipPath id="greenClip">
+          <rect class="green-mask" x="0" y="320" width="300" height="320"></rect>
+        </clipPath>
+      </defs>
+
+      <g clip-path="url(#blackClip)">
+        <path class="logo-line black-line" d="M90 100 L150 160 L210 100"></path>
+        <path class="logo-line black-line" d="M150 160 L150 235"></path>
+      </g>
+
+      <g clip-path="url(#greenClip)">
+        <path class="logo-line green-line" d="M210 100 L210 145 Q210 190 180 215 L150 235"></path>
+      </g>
+
+      <path class="logo-line black-cover" d="M150 160 L210 100"></path>
+
+      <circle class="logo-dot" cx="150" cy="55" r="20"></circle>
+    </svg>
+  </template>
+
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="홈">
+        <img src="image/logo.png" alt="YJ logo">
+      </a>
+
+      <button type="button" class="menu-toggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="main-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav" id="main-nav">
+        <a href="#profile" class="active" data-nav="profile">Profile</a>
+        <a href="#uiux-design" data-nav="uiux-design">UIUX Design</a>
+        <a href="#web-publish" data-nav="web-publish">Web Publish</a>
+        <a href="#team" data-nav="team">Team</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="profile">
+    <div class="profile-grid">
+
+      <div class="col-left">
+        <div class="intro-box anim-item" data-anim="intro">
+          <h2>소개</h2>
+        </div>
+        <div class="study-box anim-item" data-anim="study">
+          <h2>학력</h2>
+        </div>
+      </div>
+
+      <div class="profile-box anim-item" data-anim="profile">
+        <div class="profile-img">
+          <img src="image/profile.png" alt="증명사진">
+        </div>
+      </div>
+
+      <div class="skill-box anim-item" data-anim="skill">
+        <h2>Skill</h2>
+        <ul>
+          <li><span></span></li>
+          <li><span></span></li>
+          <li><span></span></li>
+          <li><span></span></li>
+          <li><span></span></li>
+        </ul>
+      </div>
+    </div>
+  </main>
+  <section class="mockup-section" id="uiux-design" aria-label="목업 갤러리">
+    <div class="mockup-grid">
+      <div class="mockup-item mockup-1" data-mockup="1"><img src="image/photo_tab1.png" alt="tab2"></div>
+      <div class="mockup-item mockup-2" data-mockup="2"><img src="image/photo_mob1.png" alt="tab2"></div>
+      <div class="mockup-item mockup-3" data-mockup="3"><img src="image/photo_mob2.png" alt="tab2"></div>
+      <div class="mockup-item mockup-4" data-mockup="4"><img src="image/photo_tab2.png" alt="tab2"></div>
+      <div class="mockup-item mockup-5" data-mockup="5"><img src="image/photo_mob3.png" alt="tab2"></div>
+      <div class="mockup-item mockup-6" data-mockup="6"><img src="image/photo_pc.png" alt="tab2"></div>
+    </div>
+  </section>
+
+  <section class="banner-section" id="web-publish" aria-label="프로젝트 배너">
+    <div class="banner-inner">
+
+      <button type="button" class="banner-arrow banner-prev" aria-label="이전 배너">
+        <svg width="24" height="40" viewBox="0 0 24 40" fill="none" aria-hidden="true">
+          <path d="M20 2L4 20L20 38" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <div class="banner-frame">
+        <div class="banner-carousel">
+          <div class="banner-track">
+
+          <article class="banner-slide" data-slide="1">
+            <div class="banner-slide-inner">
+            <div class="banner-main">
+              <div class="banner-main-img">1</div>
+            </div>
+            <div class="banner-bottom">
+              <div class="banner-thumb-item">1</div>
+              <div class="banner-thumb-item">2</div>
+              <div class="banner-thumb-item">3</div>
+              <button type="button" class="banner-modal-btn" data-banner="1">1</button>
+            </div>
+            </div>
+          </article>
+
+          <article class="banner-slide" data-slide="2">
+            <div class="banner-slide-inner">
+            <div class="banner-main">
+              <div class="banner-main-img">2</div>
+            </div>
+            <div class="banner-bottom">
+              <div class="banner-thumb-item">1</div>
+              <div class="banner-thumb-item">2</div>
+              <div class="banner-thumb-item">3</div>
+              <button type="button" class="banner-modal-btn" data-banner="2">2</button>
+            </div>
+            </div>
+          </article>
+
+          <article class="banner-slide" data-slide="3">
+            <div class="banner-slide-inner">
+            <div class="banner-main">
+              <div class="banner-main-img">3</div>
+            </div>
+            <div class="banner-bottom">
+              <div class="banner-thumb-item">1</div>
+              <div class="banner-thumb-item">2</div>
+              <div class="banner-thumb-item">3</div>
+              <button type="button" class="banner-modal-btn" data-banner="3">3</button>
+            </div>
+            </div>
+          </article>
+
+          <article class="banner-slide" data-slide="4">
+            <div class="banner-slide-inner">
+            <div class="banner-main">
+              <div class="banner-main-img">4</div>
+            </div>
+            <div class="banner-bottom">
+              <div class="banner-thumb-item">1</div>
+              <div class="banner-thumb-item">2</div>
+              <div class="banner-thumb-item">3</div>
+              <button type="button" class="banner-modal-btn" data-banner="4">4</button>
+            </div>
+            </div>
+          </article>
+
+          <article class="banner-slide" data-slide="5">
+            <div class="banner-slide-inner">
+            <div class="banner-main">
+              <div class="banner-main-img">5</div>
+            </div>
+            <div class="banner-bottom">
+              <div class="banner-thumb-item">1</div>
+              <div class="banner-thumb-item">2</div>
+              <div class="banner-thumb-item">3</div>
+              <button type="button" class="banner-modal-btn" data-banner="5">5</button>
+            </div>
+            </div>
+          </article>
+
+          <article class="banner-slide" data-slide="6">
+            <div class="banner-slide-inner">
+            <div class="banner-main">
+              <div class="banner-main-img">6</div>
+            </div>
+            <div class="banner-bottom">
+              <div class="banner-thumb-item">1</div>
+              <div class="banner-thumb-item">2</div>
+              <div class="banner-thumb-item">3</div>
+              <button type="button" class="banner-modal-btn" data-banner="6">6</button>
+            </div>
+            </div>
+          </article>
+
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="banner-arrow banner-next" aria-label="다음 배너">
+        <svg width="24" height="40" viewBox="0 0 24 40" fill="none" aria-hidden="true">
+          <path d="M4 2L20 20L4 38" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+    </div>
+  </section>
+
+  <section class="project-preview" id="team" aria-label="프로젝트 미리보기">
+    <div class="project-preview-inner">
+      <div class="project-images">
+        <div class="project-img project-img-left" aria-hidden="true"></div>
+        <div class="project-img project-img-center" aria-hidden="true"></div>
+        <div class="project-img project-img-right" aria-hidden="true"></div>
+      </div>
+
+      <div class="project-actions">
+        <a href="#" class="project-btn" target="_blank" rel="noopener noreferrer">site</a>
+        <button type="button" class="project-btn project-detail-btn">detail</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="banner-modal" aria-hidden="true">
+    <div class="banner-modal-overlay"></div>
+    <div class="banner-modal-panel">
+      <button type="button" class="banner-modal-close" aria-label="모달 닫기">&times;</button>
+      <div class="banner-modal-content"></div>
+    </div>
+  </div>
+
+  <div class="project-modal" aria-hidden="true">
+    <div class="project-modal-overlay"></div>
+    <div class="project-modal-panel">
+      <button type="button" class="project-modal-close" aria-label="모달 닫기">&times;</button>
+      <div class="project-modal-content">프로젝트 상세 내용</div>
+    </div>
+  </div>
+
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/intro.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/banner.js"></script>
+  <script src="js/project.js"></script>
+
+</body>
+</html>

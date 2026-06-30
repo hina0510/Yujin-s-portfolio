@@ -1,0 +1,113 @@
+<svg class="logo" viewBox="0 0 300 320" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .logo-line {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 30;
+    }
+
+    .black-line {
+      stroke: #2f3130;
+    }
+
+    .green-line {
+      stroke: #92e243;
+    }
+
+    .black-mask {
+      animation: revealBlack 0.9s ease forwards;
+    }
+    .black-cover {
+      stroke: #2f3130;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 30;
+
+      opacity: 0;
+      animation: showCover 0.01s forwards;
+      animation-delay: 0.9s;
+    }
+
+    .green-mask {
+      animation: revealGreen 0.9s ease forwards;
+      animation-delay: 0.8s;
+    }
+
+    .logo-dot {
+      fill: #fff500;
+      opacity: 0;
+      transform-box: fill-box;
+      transform-origin: center;
+      transform: translateY(-90px);
+      animation: dropDot 0.65s cubic-bezier(.34, 1.56, .64, 1) forwards;
+      animation-delay: 1.8s;
+    }
+
+    @keyframes revealBlack {
+      from {
+        y: 320px;
+      }
+
+      to {
+        y: 0;
+      }
+    }
+
+    @keyframes revealGreen {
+      from {
+        y: 320px;
+      }
+
+      to {
+        y: 0;
+      }
+    }
+    @keyframes showCover {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes dropDot {
+      0% {
+        opacity: 0;
+        transform: translateY(-90px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(25px);
+      }
+    }
+  </style>
+  <defs>
+    <clipPath id="blackClip">
+      <rect class="black-mask" x="0" y="320" width="300" height="320" />
+    </clipPath>
+
+    <clipPath id="greenClip">
+      <rect class="green-mask" x="0" y="320" width="300" height="320" />
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#blackClip)">
+    <path class="logo-line black-line" d="M90 100 L150 160 L210 100" />
+    <path class="logo-line black-line" d="M150 160 L150 235" />
+  </g>
+
+  <g clip-path="url(#greenClip)">
+    <path class="logo-line green-line" d="M210 100 L210 145 Q210 190 180 215 L150 235"/>
+  </g>
+
+  <path class="logo-line black-cover" d="M150 160 L210 100" />
+
+  <circle class="logo-dot" cx="150" cy="55" r="20" />
+</svg>
