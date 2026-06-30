@@ -54,7 +54,7 @@ function setActiveNav(navId) {
   });
 }
 
-const mockupOrder = [6, 1, 4, 3, 5, 2];
+const mockupOrder = [6, 1, 4, 3, 5, 2, 7];
 
   const mockupFrom = {
     1: { xPercent: -120, yPercent: 0 }, // 왼쪽
@@ -62,7 +62,8 @@ const mockupOrder = [6, 1, 4, 3, 5, 2];
     3: { xPercent: 0, yPercent: -120 }, // 위
     4: { xPercent: 120, yPercent: 0 },  // 오른쪽
     5: { xPercent: 0, yPercent: 120 },  // 아래
-    6: { xPercent: 0, yPercent: 120 }   // 오른쪽
+    6: { xPercent: 0, yPercent: 120 },   // 오른쪽
+    7: { xPercent: 0, yPercent: 120 }
   };
 gsap.registerPlugin(ScrollTrigger);
 

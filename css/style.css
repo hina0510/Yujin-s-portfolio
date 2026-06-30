@@ -383,7 +383,7 @@ header {
 
 .mockup-grid {
   display: grid;
-  grid-template-columns: repeat(24, 5px);
+  grid-template-columns: repeat(28, 5px);
   grid-template-rows: repeat(21, 5px);
   gap: 2rem;
   justify-content: center;
@@ -420,6 +420,10 @@ header {
 .mockup-6 { grid-column: 7 / 23; grid-row: 11 / 22; }
 .mockup-6 img{
   width: 650px;
+}
+.mockup-7 { grid-column: 25 / 29; grid-row: 7 / 15; }
+.mockup-7 img{
+  width: 130px;
 }
 
 /* Banner Section */
@@ -743,8 +747,9 @@ header {
   align-items: flex-start;
   justify-content: center;
   gap: 100px;
-  min-width: 1200px;
-  margin: 0 auto 0;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 0 20px;
 }
 
@@ -945,27 +950,33 @@ header {
   }
 
   .nav {
-    display: none;
-    position: absolute;
-    top: calc(100% + 8px);
-    right: 30px;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    bottom: 0;
+    width: min(280px, 75vw);
+    height: 100vh;
+    display: flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: flex-start;
     gap: 0;
-    min-width: 200px;
-    padding: 8px 0;
-    border-radius: 8px;
+    padding: 80px 0 40px;
     background-color: #fff;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
+    border-radius: 0;
+    transition: right 0.3s ease;
+    z-index: 999;
+    overflow-y: auto;
   }
 
   .nav.is-open {
-    display: flex;
+    right: 0;
   }
 
   .nav a {
-    padding: 14px 20px;
+    padding: 18px 32px;
     font-size: 18px;
+    width: 100%;
   }
 
   .nav a::after {
@@ -1026,6 +1037,25 @@ header {
     min-width: 120px;
     font-size: 18px;
   }
+
+  .mockup-section {
+    padding: 80px 20px;
+    overflow: hidden;
+  }
+
+  .mockup-grid {
+    grid-template-columns: repeat(28, 3px);
+    grid-template-rows: repeat(21, 3px);
+    gap: 1.2rem;
+  }
+
+  .mockup-1 img { width: 174px; }
+  .mockup-2 img { width: 78px; }
+  .mockup-3 img { width: 78px; }
+  .mockup-4 img { width: 144px; }
+  .mockup-5 img { width: 78px; }
+  .mockup-6 img { width: 390px; }
+  .mockup-7 img { width: 78px; }
 }
 
 /* Mobile */
@@ -1039,10 +1069,26 @@ header {
   }
 
   .nav {
-    right: 20px;
-    left: 20px;
-    min-width: auto;
+    width: min(260px, 80vw);
   }
+
+  .mockup-section {
+    padding: 60px 10px;
+  }
+
+  .mockup-grid {
+    grid-template-columns: repeat(28, 2px);
+    grid-template-rows: repeat(21, 2px);
+    gap: 0.7rem;
+  }
+
+  .mockup-1 img { width: 116px; }
+  .mockup-2 img { width: 52px; }
+  .mockup-3 img { width: 52px; }
+  .mockup-4 img { width: 96px; }
+  .mockup-5 img { width: 52px; }
+  .mockup-6 img { width: 260px; }
+  .mockup-7 img { width: 52px; }
 
   .profile-grid {
     grid-template-columns: 1fr;
@@ -1144,6 +1190,19 @@ header {
     justify-content: center;
     margin-bottom: 0;
   }
+
+  .project-preview-inner {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .contact-card {
+    min-width: 0;
+    width: 100%;
+    aspect-ratio: auto;
+    padding: 24px;
+  }
 }
 
 /* =================================================
@@ -1179,6 +1238,22 @@ header {
   border-radius: 28px;
   padding: 40px;
   box-shadow: var(--shadow);
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+
+.modal-dialog::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-dialog::-webkit-scrollbar-track {
+  background: transparent;
+  margin-bottom: 20px;
+}
+
+.modal-dialog::-webkit-scrollbar-thumb {
+  background-color: var(--accent);
+  border-radius: 3px;
 }
 
 .modal-close {
