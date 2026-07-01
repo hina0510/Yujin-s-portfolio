@@ -8,9 +8,9 @@
   const slideData = {
     1: {
       thumbs: [
-        { src: 'image/photo_tab1.png', alt: '태블릿 화면 1' },
-        { src: 'image/photo_mob1.png', alt: '모바일 화면 1' },
-        { src: 'image/photo_mob2.png', alt: '모바일 화면 2' }
+        { src: 'image/HTML.png', alt: '태블릿 화면 1' },
+        { src: 'image/CSS.png', alt: '모바일 화면 1' },
+        { src: 'image/CSS.png', alt: 'git' }
       ],
       title: 'Project 01',
       eyebrow: 'UI/UX DESIGN',
