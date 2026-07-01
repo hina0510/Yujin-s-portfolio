@@ -160,6 +160,8 @@
   }
 
   function measureLayout() {
+    const isMobile = window.innerWidth <= 480;
+
     gsap.set(slides[0], {
       position: 'relative',
       left: 'auto',
@@ -170,12 +172,32 @@
       clearProps: 'transform,zIndex'
     });
 
-    const slideHeight    = slides[0].offsetHeight;
+    // ⭐ 모바일이면 일반 세로 리스트
+    if (isMobile) {
+
+      if (frame) frame.style.height = 'auto';
+      carousel.style.height = 'auto';
+      track.style.width = '100%';
+      track.style.height = 'auto';
+      track.style.margin = '0';
+
+      slides.forEach(slide => {
+        gsap.set(slide, {
+          clearProps: 'all'
+        });
+      });
+
+      return;
+    }
+
+    // ===== PC 기존 코드 =====
+
+    const slideHeight = slides[0].offsetHeight;
     const containerHeight = slideHeight;
 
     if (frame) frame.style.height = `${containerHeight}px`;
     carousel.style.height = `${containerHeight}px`;
-    track.style.width  = '100%';
+    track.style.width = '100%';
     track.style.height = `${containerHeight}px`;
     track.style.margin = '0 auto';
 
@@ -197,6 +219,8 @@
   }
 
   function applyPositions(angle) {
+    if (window.innerWidth <= 480) return;
+
     slides.forEach((slide, i) => {
       const worldAngle  = getWorldAngle(i, angle);
       const rad         = (worldAngle * Math.PI) / 180;
@@ -223,6 +247,7 @@
   }
 
   function rotateWheel(direction) {
+    if (window.innerWidth <= 480) return;
     if (isAnimating) return;
 
     isAnimating = true;

@@ -450,12 +450,25 @@ header {
   width: 35px;
   aspect-ratio: 1/1;
 }
+/* [수정 위치] skill-card 프로그레스바 */
 .skill-card span {
   display: block;
   width: 100%;
   height: 10px;
   border-radius: 5rem;
   background-color: #D9D7D7;
+  position: relative;
+  overflow: hidden;
+}
+.skill-card span::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: var(--percent, 0%);
+  background-color: var(--navy);
+  border-radius: 5rem;
 }
 
 .skill-bottom{
@@ -478,7 +491,7 @@ header {
   width: 100%;
   min-height: 100vh;
   margin: 0 auto;
-  padding-top: 140px;
+  padding-top: 80px;
   clear: both;
 }
 
@@ -1079,12 +1092,114 @@ header {
     padding: 0 0px 32px;
   }
 
+  /* [수정 위치] profile 반응형 태블릿 - profile-grid를 flex column으로 전환 */
+  .profile-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 0 20px;
+    min-height: auto;
+  }
+
+  /* [수정 위치] profile 반응형 태블릿 - col-left: profile-box + intro-box 가로 배치 */
+  .col-left {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  #profile .profile-box {
+    flex: 0 0 42%;
+    padding: 0;
+  }
+
+  #profile .intro-box {
+    flex: 1;
+    padding: 0;
+  }
+
+  /* [수정 위치] profile 반응형 태블릿 - col-right: study-box, skill-box 세로 순서 */
+  .col-right {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* [수정 위치] mockup-section 태블릿 - grid 셀·gap 축소로 넘침 방지 */
+  .mockup-grid {
+    grid-template-columns: repeat(28, 2px);
+    grid-template-rows: repeat(21, 2px);
+    gap: 0.6rem;
+  }
+
+  .mockup-1 img { width: 100px; }
+  .mockup-2 img { width: 48px; }
+  .mockup-3 img { width: 48px; }
+  .mockup-4 img { width: 82px; }
+  .mockup-5 img { width: 48px; }
+  .mockup-6 img { width: 228px; }
+  .mockup-7 img { width: 48px; }
+
+  /* [수정 위치] banner-slide-inner 반응형 태블릿 */
+  .banner-slide-inner {
+    padding: 16px;
+  }
+
+  .banner-main-img {
+    min-height: 180px;
+  }
+
+  .banner-bottom {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .banner-thumb-item {
+    max-height: 44px;
+    max-width: 44px;
+    min-height: 44px;
+    min-width: 44px;
+    border-radius: 8px;
+  }
+
+  .banner-modal-btn,
+  .banner-btn {
+    min-width: 68px;
+    min-height: 44px;
+    padding: 0 14px;
+    font-size: 16px;
+  }
+
+  /* [수정 위치] project-preview 반응형 태블릿 */
+  .project-section__content {
+    flex-direction: column;
+    gap: 30px;
+    padding: 0 20px;
+  }
+
+  .project-preview-inner {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .project-images {
+    width: 100%;
+    max-width: 420px;
+    height: 200px;
+  }
+
+  .project-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
 }
 /* Mobile */
 @media screen and (max-width: 480px) {
   .portfolio-page {
     max-width: 480px;
-    padding: 85px 50px 30px;
+    padding: 85px 30px 30px;
     gap: 32px;
   }
 
@@ -1105,10 +1220,57 @@ header {
     grid-template-rows: auto;
     min-height: auto;
   }
-  
+
   #profile{
     padding: 0 0 28px;
   }
+
+  /* [수정 위치] profile 반응형 모바일 - col-left 세로 배치 */
+  .col-left {
+    flex-direction: column;
+  }
+
+  #profile .profile-box {
+    flex: unset;
+    width: 100%;
+  }
+  #profile .study-box {
+    padding: 0;
+  }
+  #profile .study-box h2{
+    margin-left: 10px;
+  }
+  .study-content{
+    padding: 10px;
+    margin-right: 0;
+  }
+  #profile .skill-box{
+    margin: 0;
+  }
+  #profile .skill-box h2{
+    margin-left: 10px;
+  }
+  .skill-list{
+    grid-template-columns: repeat(1,1fr);
+    padding: 0;
+  }
+  .skill-bottom{
+    padding: 0;
+  }
+
+  .mockup-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    justify-content: center;
+  }
+
+  .mockup-1, .mockup-2, .mockup-3,
+  .mockup-4, .mockup-5, .mockup-6, .mockup-7 {
+    grid-column: unset;
+    grid-row: unset;
+  }
+
   .mockup-1 { order: 1; width: 100%; }
   .mockup-2 { order: 2; width: calc(50% - 0.35rem); }
   .mockup-3 { order: 3; width: calc(50% - 0.35rem); }
@@ -1122,7 +1284,82 @@ header {
     width: 100%;
     height: auto;
   }
+  
+  /* [수정 위치] banner-slide-inner 반응형 모바일 */
+  .banner-inner {
+    display: block;
+    margin: 40px auto 0;
+    padding: 0 20px;
+  }
 
+  .banner-frame,
+  .banner-carousel,
+  .banner-track {
+    height: auto !important;
+    overflow: visible;
+  }
+
+  .banner-track {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .banner-slide {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  .banner-slide-inner {
+    width: 100%;
+  }
+
+  .banner-main-img {
+    min-height: 140px;
+  }
+
+  .banner-thumb-item {
+    max-height: 36px;
+    max-width: 36px;
+    min-height: 36px;
+    min-width: 36px;
+    border-radius: 6px;
+  }
+
+  .banner-modal-btn,
+  .banner-btn {
+    min-width: 56px;
+    min-height: 36px;
+    padding: 0 10px;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+
+  .banner-arrow {
+    display: none;
+  }
+  /* [수정 위치] project-preview 반응형 모바일 */
+  .project-section__content {
+    gap: 16px;
+    padding: 0 12px;
+  }
+
+  .project-preview-inner {
+    overflow: hidden;
+    padding: 0 12px;
+  }
+
+  .project-images {
+    max-width: 100%;
+    height: 150px;
+  }
 }
 
 /* =================================================
