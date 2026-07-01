@@ -9,6 +9,15 @@ html,body{
 	width:100%; 
 	height:100%;
 }
+body {
+  margin: 0;
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
 html{
   overflow-y:scroll;
   overflow-x:hidden;
@@ -31,6 +40,9 @@ img{
   vertical-align: top;
   font-size: 0;
   border: 0;
+}
+button {
+  font-family: inherit;
 }
 button, input{outline: none;}
 .hidden{display: none;}

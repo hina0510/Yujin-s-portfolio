@@ -1,6 +1,6 @@
 /**
  * 포트폴리오 상세 모달 기능
- * Team1 / Contact의 상세 정보를 모달로 표시합니다.
+ * Team1의 상세 정보를 모달로 표시합니다.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -54,14 +54,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalContent = document.getElementById("modalContent");
   const closeButton = document.getElementById("closeProjectModal");
   const openTeam1Button = document.getElementById("openTeam1Modal");
-  const openContact1Button = document.getElementById("openContact1Modal");
 
   // ========================================
   // 상세 콘텐츠 캐시 (성능 최적화)
   // 한 번 로드한 후 재사용
   // ========================================
   let detailCache = null;
-  let contactCache = null;
 
   /**
    * team.html에서 상세 콘텐츠를 가져오는 함수
@@ -95,37 +93,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   /**
-   * contact.html에서 연락처 콘텐츠를 가져오는 함수
-   * @param {string} type - 'contact1'
-   */
-  const loadContactContent = async (type) => {
-    try {
-      const response = await fetch("contact.html");
-      if (!response.ok) {
-        throw new Error("연락처 정보를 불러오지 못했습니다.");
-      }
-      const html = await response.text();
-
-      // HTML 문자열을 DOM으로 파싱
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, "text/html");
-
-      // contact1 콘텐츠 캐시에 저장
-      contactCache = {
-        contact1: doc.querySelector("#contact1Detail")?.outerHTML || "",
-      };
-
-      // 선택된 타입의 콘텐츠를 모달에 표시
-      renderModalContent(type, "contact");
-    } catch (error) {
-      console.error("콘텐츠 로드 오류:", error);
-      modalContent.innerHTML =
-        '<p class="modal-error">연락처 정보를 불러오지 못했습니다.</p>';
-      showModal();
-    }
-  };
-
-  /**
    * 모달 열기 함수
    * team.html에서 콘텐츠를 로드하고 모달을 표시합니다.
    * @param {string} type - 'team1'
@@ -141,33 +108,16 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   /**
-   * 연락처 모달 열기 함수
-   * contact.html에서 콘텐츠를 로드하고 모달을 표시합니다.
-   * @param {string} type - 'contact1'
-   */
-  const openContactModal = (type) => {
-    // 이미 로드한 콘텐츠가 있으면 캐시에서 가져옴
-    if (contactCache) {
-      renderModalContent(type, "contact");
-    } else {
-      // 처음 로드할 때만 fetch 실행
-      loadContactContent(type);
-    }
-  };
-
-  /**
    * 모달 콘텐츠를 렌더링하는 함수
    * 선택된 타입의 콘텐츠를 모달에 삽입하고 표시합니다.
    * @param {string} type - 콘텐츠 타입
-   * @param {string} source - 'team' 또는 'contact'
+   * @param {string} source - 'team'
    */
   const renderModalContent = (type, source = "team") => {
     let content = "";
 
     if (source === "team") {
       content = detailCache?.team1;
-    } else if (source === "contact") {
-      content = contactCache?.contact1;
     }
 
     // 모달에 콘텐츠 삽입
@@ -256,12 +206,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Team1 버튼 클릭 이벤트
   openTeam1Button?.addEventListener("click", () => {
     openModal("team1");
-    resetScroll();
-  });
-
-  // Contact1 버튼 클릭 이벤트
-  openContact1Button?.addEventListener("click", () => {
-    openContactModal("contact1");
     resetScroll();
   });
 
