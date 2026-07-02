@@ -222,7 +222,11 @@ header {
     coverColor 0.6s ease forwards;
   animation-delay: 0s, 0.75s;
 }
-
+.splash-cover.is-hide {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.45s ease, visibility 0.45s ease;
+}
 @keyframes coverExpand {
   from {
     clip-path: circle(20px at var(--cover-x, 50%) var(--cover-y, 50%));
@@ -904,9 +908,9 @@ header {
 }
 
 .project-img-center {
-  left: 25%;
+  left: 22%;
   bottom: 8%;
-  width: 56%;
+  width: 65%;
   height: 75%;
   z-index: 2;
 }
@@ -993,124 +997,6 @@ header {
 ========================================== */
 
 /* Tablet */
-@media screen and (max-width: 875px) {
-  .header-inner {
-    padding: 10px 30px;
-  }
-
-  .menu-toggle {
-    display: flex;
-  }
-
-  .nav {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    bottom: 0;
-    width: min(280px, 75vw);
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0;
-    padding: 80px 0 40px;
-    background-color: #fff;
-    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
-    border-radius: 0;
-    transition: right 0.3s ease;
-    z-index: 999;
-    overflow-y: auto;
-  }
-
-  .nav.is-open {
-    right: 0;
-  }
-
-  .nav a {
-    padding: 18px 32px;
-    font-size: 18px;
-    width: 100%;
-  }
-
-  .nav a::after {
-    display: none;
-  }
-
-  #portfolio-main {
-    padding: 90px 30px 60px;
-  }
-
-  .profile-grid {
-    width: 100%;
-    max-width: 100%;
-    min-height: calc(45vh - 40px);
-  }
-
-  .banner-inner {
-    gap: 16px;
-  }
-
-  .banner-frame {
-    width: 100%;
-  }
-
-  .banner-slide-inner {
-    padding: 24px;
-  }
-
-  .banner-main-img {
-    min-height: 240px;
-  }
-
-  .banner-bottom {
-    gap: 12px;
-  }
-
-  .banner-thumb-item,
-  .banner-modal-btn {
-    min-height: 80px;
-  }
-
-  .project-preview-inner {
-    gap: 30px;
-    padding: 0 30px;
-  }
-
-  .project-images {
-    flex: 1 1 auto;
-    max-width: 100%;
-    height: 260px;
-  }
-
-  .project-actions {
-    margin-bottom: 30px;
-  }
-
-  .project-btn {
-    min-width: 120px;
-    font-size: 18px;
-  }
-
-  .mockup-section {
-    padding: 80px 20px;
-    overflow: hidden;
-  }
-
-  .mockup-grid {
-    grid-template-columns: repeat(28, 3px);
-    grid-template-rows: repeat(21, 3px);
-    gap: 1.2rem;
-  }
-
-  .mockup-1 img { width: 174px; }
-  .mockup-2 img { width: 78px; }
-  .mockup-3 img { width: 78px; }
-  .mockup-4 img { width: 144px; }
-  .mockup-5 img { width: 78px; }
-  .mockup-6 img { width: 390px; }
-  .mockup-7 img { width: 78px; }
-}
-/* Tablet */
 @media (max-width: 768px) {
   .portfolio-page {
     padding: 85px 60px 75px;
@@ -1119,8 +1005,6 @@ header {
   #profile{
     padding: 0 0px 32px;
   }
-
-  /* [수정 위치] profile 반응형 태블릿 - profile-grid를 flex column으로 전환 */
   .profile-grid {
     display: flex;
     flex-direction: column;
@@ -1128,8 +1012,6 @@ header {
     padding: 0 20px;
     min-height: auto;
   }
-
-  /* [수정 위치] profile 반응형 태블릿 - col-left: profile-box + intro-box 가로 배치 */
   .col-left {
     flex-direction: row;
     align-items: flex-start;
@@ -1146,14 +1028,12 @@ header {
     padding: 0;
   }
 
-  /* [수정 위치] profile 반응형 태블릿 - col-right: study-box, skill-box 세로 순서 */
   .col-right {
     display: flex;
     flex-direction: column;
     gap: 20px;
   }
 
-  /* [수정 위치] mockup-section 태블릿 - grid 셀·gap 축소로 넘침 방지 */
   .mockup-grid {
     grid-template-columns: repeat(28, 2px);
     grid-template-rows: repeat(21, 2px);
@@ -1168,7 +1048,6 @@ header {
   .mockup-6 img { width: 228px; }
   .mockup-7 img { width: 48px; }
 
-  /* [수정 위치] banner-slide-inner 반응형 태블릿 */
   .banner-slide-inner {
     padding: 16px;
   }
@@ -1198,7 +1077,6 @@ header {
     font-size: 16px;
   }
 
-  /* [수정 위치] project-preview 반응형 태블릿 */
   .project-section__content {
     flex-direction: column;
     gap: 30px;
@@ -1221,6 +1099,38 @@ header {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
+  }
+  /* mockup-modal */
+  .mockup-detail--brand {
+    padding: 40px 24px;
+  }
+
+  .mockup-hero {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .mockup-hero__text h2 {
+    font-size: 44px;
+  }
+
+  .mockup-hero__info li {
+    font-size: 20px;
+  }
+
+  .mockup-hero__visual {
+    min-height: 430px;
+  }
+
+  .mockup-tablet {
+    right: 50%;
+    transform: translateX(50%);
+    width: 300px;
+  }
+
+  .mockup-qr {
+    width: 90px;
+    height: 90px;
   }
 }
 /* Mobile */
@@ -1463,7 +1373,145 @@ header {
 
 
 /* =================================================
-  07. TEAM DETAIL CONTENT
+  07. MOCKUP DETAIL CONTENT
+================================================= */
+.mockup-detail--brand {
+  padding: 30px;
+}
+
+.mockup-hero {
+  display: grid;
+  grid-template-columns: 350px 350px;
+  gap: 50px;
+  align-items: center;
+  min-height: 500px;
+}
+
+.mockup-hero__text h2 {
+  display: inline-block;
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.mockup-hero__meta {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 42px;
+}
+
+.mockup-hero__meta strong {
+  color: #bc0510;
+}
+
+.mockup-hero__info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.mockup-hero__info li {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.mockup-hero__info img {
+  width: 34px;
+  height: 34px;
+  vertical-align: middle;
+  margin-left: 8px;
+  border-radius: 8px;
+}
+
+.mockup-hero__visual {
+  position: relative;
+  min-height: 500px;
+}
+.mockup-qr {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  z-index: 3;
+}
+
+.mockup-qr img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mockup-tablet-glow {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  right: 150px;
+  top: 190px;
+  border-radius: 50%;
+  background: rgba(188, 5, 16, 0.18);
+  filter: blur(35px);
+  z-index: 0;
+}
+
+.mockup-tablet {
+  position: absolute;
+  right: 70px;
+  top: 150px;
+  width: 250px;
+  z-index: 2;
+  filter: drop-shadow(20px 24px 24px rgba(0, 0, 0, 0.25));
+}
+
+.mockup-color-chip {
+  display: flex;
+  width: fit-content;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  margin-top: 10px;
+}
+
+.mockup-color-chip span {
+  padding: 5px 10px;
+  font-size: 12px;
+  border-right: 1px solid #eee;
+  background: #fff;
+}
+
+.mockup-color-chip span:nth-child(2) {
+  background: #fffaf0;
+}
+
+.mockup-color-chip span:nth-child(3) {
+  background: #bc0510;
+  color: #fff;
+}
+
+.mockup-color-chip span:nth-child(4) {
+  background: #000;
+  color: #fff;
+  border-right: 0;
+}
+
+.mockup-detail--brand .detail-content__tab-pane img {
+  width: 100%;
+  display: block;
+}
+
+/* =================================================
+  08. BANNER DETAIL CONTENT
+================================================= */
+
+
+/* =================================================
+  09. TEAM DETAIL CONTENT
 ================================================= */
 .detail-content {
   display: flex;
@@ -1515,6 +1563,7 @@ header {
 
 .detail-content__info-card p {
   margin: 0;
+  font-size: 14px;
   color: var(--muted);
   line-height: 1.7;
 }
@@ -1523,7 +1572,6 @@ header {
   display: flex;
   gap: 24px;
   border-bottom: 1px solid var(--border);
-  margin-bottom: 32px;
 }
 
 .detail-content__tab-button {
@@ -1595,17 +1643,4 @@ header {
 .detail-content__feature-item[data-direction="down"] .detail-content__info-card {
   grid-column: 2;
   grid-row: 2;
-}
-
-
-
-
-@media (max-width: 480px) {
-  
-}
-
-.splash-cover.is-hide {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.45s ease, visibility 0.45s ease;
 }

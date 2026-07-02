@@ -4,144 +4,109 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 모달 관련 요소
   const modal = document.getElementById('projectModal');
   const modalContent = document.getElementById('modalContent');
   const closeButton = document.getElementById('closeProjectModal');
 
-  // 모달 데이터 (확장 가능한 구조)
-  const mockupData = {
-    1: {
-      title: 'Project 01',
-      description: '첫 번째 프로젝트입니다.',
-      // 나중에 추가 가능: image, link, tech, etc.
-    },
-    2: {
-      title: 'Project 02',
-      description: '두 번째 프로젝트입니다.',
-    },
-    3: {
-      title: 'Project 03',
-      description: '세 번째 프로젝트입니다.',
-    },
-    4: {
-      title: 'Project 04',
-      description: '네 번째 프로젝트입니다.',
-    },
-    5: {
-      title: 'Project 05',
-      description: '다섯 번째 프로젝트입니다.',
-    },
-    6: {
-      title: 'Project 06',
-      description: '여섯 번째 프로젝트입니다.',
-    },
-    7: {
-      title: 'Project 07',
-      description: '일곱 번째 프로젝트입니다.',
-    },
-  };
+  // ========================================
+  // Mockup 상세 콘텐츠 캐시
+  // ========================================
+  let detailCache = null;
 
   /**
-   * 모달 콘텐츠를 렌더링하는 함수
-   * @param {number} mockupId - 모달에 표시할 프로젝트 ID
+   * mockup.html에서 상세 콘텐츠를 가져오는 함수
+   * @param {number} id - mockup 번호 (1~7)
    */
-  const renderModalContent = (mockupId) => {
-    const data = mockupData[mockupId];
+  const loadMockupContent = async (id) => {
+    try {
+      // 최초 1회만 로드
+      if (!detailCache) {
+        const response = await fetch("mockup.html");
 
-    if (!data) {
-      modalContent.innerHTML = '<p class="modal-error">프로젝트 정보를 찾을 수 없습니다.</p>';
-      return;
+        if (!response.ok) {
+          throw new Error("mockup.html을 불러오지 못했습니다.");
+        }
+
+        const html = await response.text();
+
+        const parser = new DOMParser();
+        detailCache = parser.parseFromString(html, "text/html");
+      }
+
+      const content = detailCache.querySelector(`#mockup${id}Detail`);
+
+      modalContent.innerHTML = content
+        ? content.outerHTML
+        : '<p class="modal-error">상세 정보를 찾을 수 없습니다.</p>';
+
+    } catch (error) {
+      console.error(error);
+
+      modalContent.innerHTML =
+        '<p class="modal-error">상세 내용을 불러오지 못했습니다.</p>';
+    }
+  };
+
+    const resetScroll = () => {
+      const modalDialog = modal?.querySelector('.modal-dialog');
+      if (modalDialog) {
+        modalDialog.scrollTop = 0;
+      }
+    };
+
+  const openModal = async (mockupId) => {
+    if (!modal || !modalContent) return;
+
+    await loadMockupContent(mockupId);
+    initMockupTabs();
+
+    resetScroll();
+
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+
+    if (typeof window.lockProjectModalScroll === "function") {
+      window.lockProjectModalScroll();
     }
 
-    // 모달 콘텐츠 생성
-    const html = `
-      <div class="mockup-detail">
-        <h2>${data.title}</h2>
-        <p>${data.description}</p>
-      </div>
-    `;
-
-    modalContent.innerHTML = html;
-  };
-
-  /**
-   * 모달을 열기
-   * @param {number} mockupId - 열 모달의 프로젝트 ID
-   */
-  const openModal = (mockupId) => {
-    renderModalContent(mockupId);
-    modal.classList.add('is-open');
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('modal-open');
-
-    // 모달 표시 후 닫기 버튼에 포커스
     setTimeout(() => {
       closeButton?.focus();
     }, 100);
   };
 
-  /**
-   * 모달을 닫기
-   */
-  const closeModal = () => {
-    modal.classList.remove('is-open');
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('modal-open');
-  };
-
-  /**
-   * 모달 내부 스크롤 위치 초기화
-   */
-  const resetScroll = () => {
-    if (modal && modal.querySelector('.modal-dialog')) {
-      modal.querySelector('.modal-dialog').scrollTop = 0;
-    }
-  };
-
-  // ========================================
-  // 이벤트 리스너 등록
-  // ========================================
-
-  // Mockup 아이템 클릭 이벤트
   document.querySelectorAll('.mockup-item').forEach((item) => {
     item.addEventListener('click', (e) => {
       e.preventDefault();
+
       const mockupId = item.getAttribute('data-mockup');
+
       if (mockupId) {
         openModal(Number(mockupId));
-        resetScroll();
       }
     });
 
-    // 클릭 가능한 요소로 표시
     item.style.cursor = 'pointer';
   });
-
-  // 닫기 버튼 클릭 이벤트
-  closeButton?.addEventListener('click', closeModal);
-
-  // 배경 클릭 시 모달 닫기 (overlay 클릭)
-  modal?.addEventListener('click', (event) => {
-    if (event.target === modal) {
-      closeModal();
-    }
-  });
-
-  // ESC 키 눌렀을 때 모달 닫기
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && modal.classList.contains('is-open')) {
-      closeModal();
-    }
-  });
-
-  // 터치 스크롤 최적화 (모바일)
-  if ('ontouchstart' in window) {
-    modal?.addEventListener('touchmove', (event) => {
-      const modalDialog = modal.querySelector('.modal-dialog');
-      if (modalDialog && event.target === modal) {
-        event.preventDefault();
-      }
-    });
-  }
 });
+
+function initMockupTabs() {
+  const tabButtons = modalContent.querySelectorAll(".detail-content__tab-button");
+  const tabPanes = modalContent.querySelectorAll(".detail-content__tab-pane");
+
+  tabButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const tabName = button.dataset.tab;
+
+      tabButtons.forEach((btn) => btn.classList.remove("is-active"));
+      tabPanes.forEach((pane) => pane.classList.remove("is-active"));
+
+      button.classList.add("is-active");
+
+      const selectedPane = modalContent.querySelector(
+        `.detail-content__tab-pane[data-pane="${tabName}"]`
+      );
+
+      selectedPane?.classList.add("is-active");
+    });
+  });
+}

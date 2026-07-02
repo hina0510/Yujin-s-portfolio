@@ -100,11 +100,16 @@ function initPageAnimations() {
   }
 
   let isMockupAnimating = false;
+  let hasMockupPlayed = false;
 
-  function playMockupAnimation() {
+  function playMockupAnimation(self) {
+    if (document.body.classList.contains("modal-open")) return;
+    if (self.direction !== 1) return;
     if (isMockupAnimating) return;
+    if (hasMockupPlayed) return;
 
     isMockupAnimating = true;
+    hasMockupPlayed = true;
 
     gsap.killTweensOf(".mockup-item");
 
@@ -141,17 +146,20 @@ function initPageAnimations() {
     trigger: ".mockup-section",
     start: "top 85%",
 
-    onEnter: () => {
-      playMockupAnimation();
+    onEnter: (self) => {
+      playMockupAnimation(self);
     },
 
     onLeaveBack: () => {
+      if (document.body.classList.contains("modal-open")) return;
+
+      hasMockupPlayed = false;
+      isMockupAnimating = false;
+
       gsap.killTweensOf(".mockup-item");
       gsap.set(".mockup-item", { autoAlpha: 0 });
-      isMockupAnimating = false;
     }
   });
-
     ScrollTrigger.refresh();
   }
 

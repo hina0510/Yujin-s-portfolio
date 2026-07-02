@@ -1,4 +1,9 @@
 (function () {
+  // 전역 스크롤 위치 저장 (모든 모달이 공유)
+  if (!window.portfolioScrollPosition) {
+    window.portfolioScrollPosition = 0;
+  }
+
   /* ─── 1. 슬라이드별 데이터 정의 ───────────────────────────────────────
    * 수정 위치: banner.js 상단
    * 각 슬라이드의 썸네일 이미지 배열과 모달 내용을 여기서 관리합니다.
@@ -68,6 +73,19 @@
     }
   };
 
+  // 스크롤바 너비 계산
+  const getScrollbarWidth = () => {
+    const outer = document.createElement('div');
+    outer.style.visibility = 'hidden';
+    outer.style.overflow = 'scroll';
+    document.body.appendChild(outer);
+    const inner = document.createElement('div');
+    outer.appendChild(inner);
+    const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+    outer.parentNode.removeChild(outer);
+    return scrollbarWidth;
+  };
+
   const bannerSection = document.querySelector('.banner-section');
   if (!bannerSection || typeof gsap === 'undefined') return;
 
@@ -109,6 +127,7 @@
    * (활성 슬라이드 기준이 아닌, 버튼이 포함된 슬라이드 기준) */
   function openBannerModal(bannerNum) {
     if (!modal || !modalContent) return;
+
     const data = slideData[bannerNum];
     if (!data) return;
 
@@ -122,9 +141,14 @@
       </div>
     `;
 
-    modal.classList.add('is-open');
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('modal-open');
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+
+    if (typeof window.lockProjectModalScroll === "function") {
+      window.lockProjectModalScroll();
+    } else {
+      document.body.classList.add("modal-open");
+    }
   }
 
   /* .banner-modal-btn 클릭: 속한 슬라이드의 data-banner로 모달 열기 */

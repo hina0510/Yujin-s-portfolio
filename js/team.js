@@ -4,6 +4,24 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
+  // 전역 스크롤 위치 저장 (모든 모달이 공유)
+  if (!window.portfolioScrollPosition) {
+    window.portfolioScrollPosition = 0;
+  }
+
+  // 스크롤바 너비 계산
+  const getScrollbarWidth = () => {
+    const outer = document.createElement('div');
+    outer.style.visibility = 'hidden';
+    outer.style.overflow = 'scroll';
+    document.body.appendChild(outer);
+    const inner = document.createElement('div');
+    outer.appendChild(inner);
+    const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+    outer.parentNode.removeChild(outer);
+    return scrollbarWidth;
+  };
+
   const dot = document.querySelector(".logo-dot");
   const splash = document.querySelector("#splash");
   const splashCover = document.querySelector(".splash-cover");
@@ -166,27 +184,49 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  /**
-   * 모달을 화면에 표시하는 함수
-   */
+  let modalOpenScrollY = 0;
+
+  function lockBodyScroll() {
+    modalOpenScrollY = window.scrollY || window.pageYOffset;
+
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${modalOpenScrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+    document.body.classList.add("modal-open");
+  }
+
+  function unlockBodyScroll() {
+    document.body.classList.remove("modal-open");
+
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+
+    window.scrollTo(0, modalOpenScrollY);
+  }
+  window.lockProjectModalScroll = lockBodyScroll;
+  window.unlockProjectModalScroll = unlockBodyScroll;
+
   const showModal = () => {
+    lockBodyScroll();
+
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
-    document.body.classList.add("modal-open");
 
-    // 모달이 표시된 후 포커스를 닫기 버튼으로 이동
     setTimeout(() => {
       closeButton?.focus();
     }, 100);
   };
 
-  /**
-   * 모달을 숨기는 함수
-   */
   const closeModal = () => {
     modal.classList.remove("is-open");
     modal.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("modal-open");
+
+    unlockBodyScroll();
   };
 
   /**
