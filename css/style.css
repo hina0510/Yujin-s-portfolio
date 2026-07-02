@@ -449,8 +449,8 @@ header {
 .other-images img{
   width: 35px;
   aspect-ratio: 1/1;
+  border-radius: 10px;
 }
-/* [수정 위치] skill-card 프로그레스바 */
 .skill-card span {
   display: block;
   width: 100%;
@@ -510,7 +510,10 @@ header {
   height: fit-content;
   object-fit: cover;
 }
-
+/* .mockup-item:hover:before{
+  content: '';
+  background: #666;
+} */
 .mockup-1 { grid-column: 1 / 10; grid-row: 3 / 10; }
 .mockup-1 img{
   width: 290px;
