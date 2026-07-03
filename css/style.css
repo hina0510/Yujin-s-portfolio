@@ -597,7 +597,6 @@ header {
 .banner-carousel {
   position: relative;
   width: 100%;
-  /* overflow: hidden; */
 }
 
 .banner-track {
@@ -1325,7 +1324,7 @@ header {
 
 .modal-dialog {
   position: relative;
-  width: min(900px, 100%);
+  width: min(1100px, 100%);
   max-height: 85vh;
   overflow-y: auto;
   background: #ffffff;
@@ -1381,15 +1380,15 @@ header {
 
 .mockup-hero {
   display: grid;
-  grid-template-columns: 350px 350px;
+  grid-template-columns: 450px 450px;
   gap: 50px;
   align-items: center;
-  min-height: 500px;
+  min-height: 550px;
 }
 
 .mockup-hero__text h2 {
   display: inline-block;
-  font-size: 48px;
+  font-size: 55px;
   font-weight: 800;
   line-height: 1;
   margin-bottom: 20px;
@@ -1400,7 +1399,7 @@ header {
   gap: 10px;
   align-items: center;
   flex-wrap: wrap;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   margin-bottom: 42px;
 }
@@ -1417,7 +1416,7 @@ header {
 }
 
 .mockup-hero__info li {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
 }
 
@@ -1431,7 +1430,7 @@ header {
 
 .mockup-hero__visual {
   position: relative;
-  min-height: 500px;
+  min-height: 550px;
 }
 .mockup-qr {
   position: absolute;
@@ -1452,7 +1451,7 @@ header {
   position: absolute;
   width: 250px;
   height: 250px;
-  right: 150px;
+  right: 250px;
   top: 190px;
   border-radius: 50%;
   background: rgba(188, 5, 16, 0.18);
@@ -1463,8 +1462,8 @@ header {
 .mockup-tablet {
   position: absolute;
   right: 70px;
-  top: 150px;
-  width: 250px;
+  top: 100px;
+  width: 350px;
   z-index: 2;
   filter: drop-shadow(20px 24px 24px rgba(0, 0, 0, 0.25));
 }
