@@ -710,7 +710,6 @@ header {
 .banner-carousel {
   position: relative;
   width: 100%;
-  /* overflow: hidden; */
 }
 
 .banner-track {
