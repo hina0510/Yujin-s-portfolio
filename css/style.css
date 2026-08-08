@@ -149,60 +149,141 @@ header {
 }
 
 .logo {
-  width: 350px;
+  width: 240px;
   height: auto;
   display: block;
 }
+.logo-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 30;
+}
+.black-line {
+  stroke: #2f3130;
+}
+.green-line {
+  stroke: #92e243;
+}
+.black-mask {
+  animation: revealBlack 3s ease forwards;
+}
+.black-cover {
+  stroke: #2f3130;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 30;
+  opacity: 0;
+  animation: showCover 0.01s forwards;
+  animation-delay: 2s;
+}
+.green-mask {
+  animation: revealGreen 3s ease forwards;
+  animation-delay: 2s;
+}
+.logo-dot {
+  fill: #fff500;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation:
+    dropDot 0.7s cubic-bezier(.34, 1.56, .64, 1) forwards,
+    riseDot 0.25s ease-out forwards;
+  animation-delay:
+    6.5s,
+    7s;
+}
 
-#splash h1,
-#splash p {
+@keyframes revealBlack {
+  from {
+    y: 320px;
+  }
+
+  to {
+    y: 0;
+  }
+}
+
+@keyframes revealGreen {
+  from {
+    y: 320px;
+  }
+
+  to {
+    y: 0;
+  }
+}
+
+@keyframes showCover {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dropDot {
+  0% {
+    opacity: 0;
+    transform: translateY(-90px) scale(1);
+  }
+
+  80% {
+    opacity: 1;
+    transform: translateY(35px) scale(1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(25px) scale(1);
+  }
+}
+
+@keyframes riseDot {
+  from {
+    opacity: 1;
+    transform: translateY(25px) scale(1);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(10px) scale(1);
+  }
+}
+
+/* 로고 애니메이션 임시 정지 */
+/* #splash .black-mask,
+#splash .black-cover,
+#splash .green-mask,
+#splash .logo-dot {
+  animation: none !important;
+} */
+
+#splash>h1,
+#splash>p {
   color: var(--navy);
 }
-
-
-.logo-dot{
-  fill:#fff500;
-  opacity:0;
-  transform-box:fill-box;
-  transform-origin:center;
-
-  /* SVG 안의 점은 떨어졌다가 살짝 올라오는 역할만 담당 */
-  animation:
-    dropDot .7s cubic-bezier(.34,1.56,.64,1) forwards,
-    riseDot .25s ease-out forwards;
-
-  animation-delay:
-    1.8s,
-    2.5s;
+.skill-bottom {
+  display: flex;
+  justify-content: center;
+  padding: 80px 20px 0;
+  gap: 150px;
 }
-
-@keyframes dropDot{
-  0%{
-    opacity:0;
-    transform:translateY(-90px) scale(1);
-  }
-
-  80%{
-    opacity:1;
-    transform:translateY(35px) scale(1);
-  }
-
-  100%{
-    opacity:1;
-    transform:translateY(25px) scale(1);
-  }
+.skill-content {
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateX(-50px);
 }
-
-@keyframes riseDot{
-  from{
-    opacity:1;
-    transform:translateY(25px) scale(1);
-  }
-
-  to{
-    opacity:1;
-    transform:translateY(10px) scale(1);
-  }
+.skill-bottom h3,
+.skill-bottom p {
+  display: inline-block;
+}
+.skill-bottom h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+.skill-bottom p {
+  margin: 0;
 }
 
 .splash-cover {
@@ -272,62 +353,61 @@ header {
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100vh;
-  padding-top: 140px;
+  max-height: 100vh;
   margin: 0 auto;
+  scroll-margin-top: 76px;
   gap: 30px;
 }
 
 /* Profile — 1:1 grid */
 .profile-grid {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: repeat(2, 1fr);;
-  gap: 50px;
-  padding: 0 50px;
+  grid-template-columns: 4fr 9fr;
+  gap: 30px;
   width: 100%;
-  min-height: calc(60vh - 6rem);
+  height: calc(90vh);
+  padding: 40px 0;
 }
 
 .col-left {
   grid-column: 1;
-  grid-row: 1 / -1;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  padding: 0 50px;
+  gap: 32px;
   min-height: 0;
   min-width: 0;
 }
 .col-right {
   grid-column: 2;
-  grid-row: 1 / -1;
   display: flex;
   flex-direction: column;
-  /* gap: 20px; */
+  padding: 0 50px;
   min-height: 0;
   min-width: 0;
 }
 
-#profile .profile-box,
-#profile .study-box {
-  position: static;
-  width: auto;
-  margin: 0;
-  padding: 32px;
+#profile .profile-box{
+  display: flex;
+  flex-direction: column;
+  flex: 6;
+  gap: 10px;
+  min-height: 0;
 }
-#profile .profile-box,
+
 #profile .intro-box{
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex: 7;
   gap: 10px;
   min-height: 0;
 }
 
 #profile .intro-box h2,
 #profile .study-box h2,
+#profile .license-box h2,
 #profile .skill-box h2 {
-  font-size: 28px;
+  font-size: 20px;
   color: var(--navy);
 }
 .intro-box h3,
@@ -338,12 +418,9 @@ header {
   margin: 0;
 }
 /* Profile-box */
-#profile .profile-box{
-  padding: 0 50px;
-}
 .profile-img {
   width: 100%;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 3 / 7;
   border-radius: 1.4rem;
   overflow: hidden;
   background-color: #fff;
@@ -354,19 +431,23 @@ header {
   object-fit: cover;
 }
 /* Intro-box */
-#profile .intro-box{
-  padding: 0 40px;}
 .intro-box h2{margin-left: 10px;}
 .intro-top{
   display: flex;
   justify-content: center;
+  white-space: nowrap;
 }
 .intro-top>.intro-content:nth-child(1){padding: 15px 10px 0 10px;}
 .intro-top>.intro-content:nth-child(3){
   padding: 15px 10px 0 10px;
 }
 .intro-content.mid{
-  padding: 15px 10px;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+.intro-content.mid p{
+  white-space: nowrap;
 }
 .intro-content{
   display: flex;
@@ -378,7 +459,17 @@ header {
 .intro-content:nth-child(2){border-left: #666;}
 .intro-content.bg{
   background-color: var(--light-sky);
-  margin: 0 10px;
+  transition: 0.35s;
+}
+.intro-content.bg .intro-icon{
+  color: #000;
+}
+.intro-content.bg:hover{
+  background-color: var(--navy);
+  color: #fff;
+}
+.intro-content.bg:hover .intro-icon{
+  color: #fff;
 }
 .intro-line{
   width: 1px;
@@ -386,13 +477,20 @@ header {
   background-color: #666;
 }
 /* Study-box */
-.content-list{margin-top: 10px;}
+#profile .study-box {
+  width: auto;
+  margin: 0;
+}
+.content-list{
+  margin-top: 10px;
+  padding-right: 80px;
+}
 .study-content{
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 15px 20px;
-  margin-right: 140px;
+  margin: 0 55px 0 25px;
   border-bottom: 3px solid var(--light-sky);
 }
 .study-content h3{
@@ -401,52 +499,57 @@ header {
 .study-content:nth-child(4){
   border-bottom: none;
 }
-/* Skill-box */
+/* License-box */
+#profile .license-box,
 #profile .skill-box{
-  margin-top: 10px;
-  border-top: 1px solid #666;
-  padding-top: 32px;
-  margin: 0 20px;
+  padding-top: 10px;
 }
+.license-list {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 15px 15px 0;
+  margin-top: 10px;
+}
+.license-content{
+  display: flex;
+  flex-direction: column;
+  width: 215px;
+  padding: 15px 30px;
+  border-right: 3px solid var(--light-sky);
+}
+.license-content:last-child{
+  border-right: none;
+}
+/* Skill-box */
 .skill-list {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
-  grid-template-rows: repeat(2,1fr);
-  width: 100%;
-  list-style: none;
-  margin-top: 25px;
-  padding: 0 20px;
-  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  padding: 15px 30px 15px 15px;
+  margin-top: 10px;
+  gap: 20px;
 }
 
 .skill-card {
   display: flex;
   align-items: center;
   width: 100%;
-  gap: 10px;
-  padding: 10px;
-  border: 1px solid #000;
+  gap: 20px;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 5px 5px 5px 0 var(--light-sky);
 }
 .skill-images{
   display: flex;
-  width: 135px;
-  gap: 10px;
-}
-.ai-images{
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  grid-template-rows: repeat(2,1fr);
-  place-items: center;
-  width: 100%;
-  gap: 10px;
+  min-width: 200px;
+  gap: 20px;
 }
 .other-images{
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  grid-template-rows: repeat(2,1fr);
+  display: flex;
   place-items: center;
   width: 100%;
-  gap: 10px;
+  gap: 20px;
 }
 .skill-images img,
 .ai-images img,
@@ -455,47 +558,57 @@ header {
   aspect-ratio: 1/1;
   border-radius: 10px;
 }
-.skill-card span {
-  display: block;
-  width: 100%;
-  height: 10px;
-  border-radius: 5rem;
-  background-color: #D9D7D7;
+/* Skill 원형 그래프 */
+.skill-progress {
   position: relative;
-  overflow: hidden;
-}
-.skill-card span::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: var(--percent, 0%);
-  background-color: var(--navy);
-  border-radius: 5rem;
+  flex-shrink: 0;
+  width: 90px;
+  height: 90px;
 }
 
-.skill-bottom{
-  display: grid;
-  grid-template-columns: 1.2fr 1.2fr 1fr;
-  padding: 30px 20px 0;
+.skill-progress svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  /* 원의 시작점을 왼쪽으로 */
+  transform: rotate(90deg);
+  overflow: visible;
 }
-.skill-content,
-.skill-bottom h3,
-.skill-bottom p{
-  display: inline-block;
+
+.skill-progress circle {
+  fill: none;
+  stroke-width: 10;
 }
-.skill-bottom h3{
-  font-size: 22px;
-  margin-bottom: 10px;
+
+/* 배경 원 */
+.skill-progress-bg {
+  stroke: #ddd;
 }
-.skill-bottom p{margin: 0;}
+
+/* 퍼센트 원 */
+.skill-progress-circle {
+  stroke: var(--navy);
+  stroke-linecap: round;
+}
+
+/* 가운데 퍼센트 */
+.skill-percent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--navy);
+  font-size: 18px;
+  font-weight: 700;
+}
+
 /* Mockup Section */
 .mockup-section {
   width: 100%;
   min-height: 100vh;
   margin: 0 auto;
-  padding-top: 80px;
+  scroll-margin-top: 76px;
   clear: both;
 }
 
@@ -576,7 +689,7 @@ header {
 .banner-section {
   min-height: 100vh;
   margin: 0 auto;
-  padding: 100px 0;
+  scroll-margin-top: 76px;
   width: 100%;
 }
 
@@ -788,9 +901,6 @@ header {
 }
 
 /* Project Preview */
-
-
-
 .page-intro {
   text-align: center;
   max-width: 720px;
@@ -823,20 +933,20 @@ header {
   04. PROJECT SECTION
 ================================================= */
 .project-preview {
+  scroll-margin-top: 76px;
   width: 100%;
-  padding: 100px 0;
-  width: 100%;
-  min-height: 100vh;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
+  gap: 50px;
 }
 
 .project-section__content {
   display: flex;
   align-items: flex-start;
   max-width: 1100px;
-  margin: 30px auto 0;
-  gap: 500px;
+  margin: 30px 90px 0;
+  gap: 100px;
 }
 
 .project-section__info {
@@ -887,11 +997,10 @@ header {
 
 .project-images {
   position: relative;
-  flex: 0 1 780px;
+  flex: 0 1 900px;
   width: 100%;
-  max-width: 780px;
-  height: 400px;
-  margin-top: 50px;
+  max-width: 900px;
+  height: 500px;
 }
 
 .project-img {
@@ -900,26 +1009,26 @@ header {
 }
 
 .project-img-left {
-  left: 2%;
+  left: 0;
   bottom: 0;
-  width: 22%;
+  width: 24%;
   height: 57%;
   z-index: 3;
 }
 
 .project-img-center {
-  left: 22%;
+  left: 23.5%;
   bottom: 8%;
-  width: 65%;
-  height: 75%;
+  width: 63%;
+  height: 73%;
   z-index: 2;
 }
 
 .project-img-right {
-  right: 3%;
+  right: 0;
   bottom: 4%;
-  width: 15%;
-  height: 60%;
+  width: 16%;
+  height: 58%;
   z-index: 2;
 }
 
@@ -931,7 +1040,6 @@ header {
 
 .project-actions {
   display: flex;
-  flex-direction: column;
   gap: 16px;
   flex-shrink: 0;
   margin-top: 30px;
@@ -1325,7 +1433,7 @@ header {
 
 .modal-dialog {
   position: relative;
-  width: min(900px, 100%);
+  width: min(1300px, calc(100% - 40px));
   max-height: 85vh;
   overflow-y: auto;
   background: #ffffff;
@@ -1364,7 +1472,9 @@ header {
   font-size: 1.3rem;
   cursor: pointer;
 }
-
+.mockup-hero img{
+  width: min(1200px, calc(100%));
+}
 .modal-content {
   display: flex;
   flex-direction: column;
@@ -1377,132 +1487,6 @@ header {
 ================================================= */
 .mockup-detail--brand {
   padding: 30px;
-}
-
-.mockup-hero {
-  display: grid;
-  grid-template-columns: 350px 350px;
-  gap: 50px;
-  align-items: center;
-  min-height: 500px;
-}
-
-.mockup-hero__text h2 {
-  display: inline-block;
-  font-size: 48px;
-  font-weight: 800;
-  line-height: 1;
-  margin-bottom: 20px;
-}
-
-.mockup-hero__meta {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-wrap: wrap;
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 42px;
-}
-
-.mockup-hero__meta strong {
-  color: #bc0510;
-}
-
-.mockup-hero__info {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  margin-bottom: 32px;
-}
-
-.mockup-hero__info li {
-  font-size: 20px;
-  font-weight: 700;
-}
-
-.mockup-hero__info img {
-  width: 34px;
-  height: 34px;
-  vertical-align: middle;
-  margin-left: 8px;
-  border-radius: 8px;
-}
-
-.mockup-hero__visual {
-  position: relative;
-  min-height: 500px;
-}
-.mockup-qr {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100px;
-  height: 100px;
-  z-index: 3;
-}
-
-.mockup-qr img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.mockup-tablet-glow {
-  position: absolute;
-  width: 250px;
-  height: 250px;
-  right: 150px;
-  top: 190px;
-  border-radius: 50%;
-  background: rgba(188, 5, 16, 0.18);
-  filter: blur(35px);
-  z-index: 0;
-}
-
-.mockup-tablet {
-  position: absolute;
-  right: 70px;
-  top: 150px;
-  width: 250px;
-  z-index: 2;
-  filter: drop-shadow(20px 24px 24px rgba(0, 0, 0, 0.25));
-}
-
-.mockup-color-chip {
-  display: flex;
-  width: fit-content;
-  overflow: hidden;
-  border: 1px solid #ddd;
-  border-radius: 30px;
-  margin-top: 10px;
-}
-
-.mockup-color-chip span {
-  padding: 5px 10px;
-  font-size: 12px;
-  border-right: 1px solid #eee;
-  background: #fff;
-}
-
-.mockup-color-chip span:nth-child(2) {
-  background: #fffaf0;
-}
-
-.mockup-color-chip span:nth-child(3) {
-  background: #bc0510;
-  color: #fff;
-}
-
-.mockup-color-chip span:nth-child(4) {
-  background: #000;
-  color: #fff;
-  border-right: 0;
-}
-
-.mockup-detail--brand .detail-content__tab-pane img {
-  width: 100%;
-  display: block;
 }
 
 /* =================================================
@@ -1519,22 +1503,8 @@ header {
   gap: 32px;
 }
 
-.detail-content__header {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.detail-content__header h2 {
-  margin: 0;
-  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
-}
-
-.detail-content__summary {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.7;
-  max-width: 600px;
+.detail-content__header img{
+  width: min(1200px, calc(100%));
 }
 
 .detail-content__info-grid {
@@ -1604,7 +1574,9 @@ header {
 .detail-content__tab-pane.is-active {
   display: block;
 }
-
+.detail-content__tab-pane.is-active img {
+  width: min(1200px, calc(100%));
+}
 /* 주요 기능 탭 레이아웃 */
 .detail-content__feature-list {
   display: flex;

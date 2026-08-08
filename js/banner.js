@@ -13,63 +13,45 @@
   const slideData = {
     1: {
       thumbs: [
-        { src: 'image/HTML.png', alt: '태블릿 화면 1' },
-        { src: 'image/CSS.png', alt: '모바일 화면 1' },
-        { src: 'image/CSS.png', alt: 'git' }
-      ],
-      title: 'Project 01',
-      eyebrow: 'UI/UX DESIGN',
-      summary: '첫 번째 프로젝트의 상세 내용입니다.'
+        { src: 'image/HTML.png', alt: 'HTML' },
+        { src: 'image/CSS.png', alt: 'CSS' },
+        { src: 'image/CSS.png', alt: 'CSS' }
+      ]
     },
     2: {
       thumbs: [
-        { src: 'image/photo_tab2.png', alt: '태블릿 화면 2' },
-        { src: 'image/photo_mob3.png', alt: '모바일 화면 3' },
-        { src: 'image/photo_mob4.png', alt: '모바일 화면 4' }
-      ],
-      title: 'Project 02',
-      eyebrow: 'UI/UX DESIGN',
-      summary: '두 번째 프로젝트의 상세 내용입니다.'
+        { src: 'image/HTML.png', alt: 'HTML' },
+        { src: 'image/CSS.png', alt: 'CSS' },
+        { src: 'image/CSS.png', alt: 'CSS' }
+      ]
     },
     3: {
       thumbs: [
-        { src: 'image/photo_pc.png', alt: 'PC 화면' },
-        { src: 'image/photo_tab1.png', alt: '태블릿 화면 1' },
-        { src: 'image/photo_mob1.png', alt: '모바일 화면 1' }
-      ],
-      title: 'Project 03',
-      eyebrow: 'WEB PUBLISH',
-      summary: '세 번째 프로젝트의 상세 내용입니다.'
+        { src: 'image/HTML.png', alt: 'HTML' },
+        { src: 'image/CSS.png', alt: 'CSS' },
+        { src: 'image/CSS.png', alt: 'CSS' }
+      ]
     },
     4: {
       thumbs: [
-        { src: 'image/photo_mob2.png', alt: '모바일 화면 2' },
-        { src: 'image/photo_mob3.png', alt: '모바일 화면 3' },
-        { src: 'image/photo_tab2.png', alt: '태블릿 화면 2' }
-      ],
-      title: 'Project 04',
-      eyebrow: 'UI/UX DESIGN',
-      summary: '네 번째 프로젝트의 상세 내용입니다.'
+        { src: 'image/HTML.png', alt: 'HTML' },
+        { src: 'image/CSS.png', alt: 'CSS' },
+        { src: 'image/CSS.png', alt: 'CSS' }
+      ]
     },
     5: {
       thumbs: [
-        { src: 'image/photo_mob4.png', alt: '모바일 화면 4' },
-        { src: 'image/photo_pc.png', alt: 'PC 화면' },
-        { src: 'image/photo_tab1.png', alt: '태블릿 화면 1' }
-      ],
-      title: 'Project 05',
-      eyebrow: 'WEB PUBLISH',
-      summary: '다섯 번째 프로젝트의 상세 내용입니다.'
+        { src: 'image/HTML.png', alt: 'HTML' },
+        { src: 'image/CSS.png', alt: 'CSS' },
+        { src: 'image/CSS.png', alt: 'CSS' }
+      ]
     },
     6: {
       thumbs: [
-        { src: 'image/photo_mob1.png', alt: '모바일 화면 1' },
-        { src: 'image/photo_tab2.png', alt: '태블릿 화면 2' },
-        { src: 'image/photo_pc.png', alt: 'PC 화면' }
-      ],
-      title: 'Project 06',
-      eyebrow: 'WEB PUBLISH',
-      summary: '여섯 번째 프로젝트의 상세 내용입니다.'
+        { src: 'image/HTML.png', alt: 'HTML' },
+        { src: 'image/CSS.png', alt: 'CSS' },
+        { src: 'image/CSS.png', alt: 'CSS' }
+      ]
     }
   };
 
@@ -120,43 +102,108 @@
    * 수정 위치: banner.js — 기존 .banner-modal 대신 index.html의 공통 모달 사용
    * 닫기 버튼 / ESC / 배경 클릭 닫기는 team.js가 이미 처리합니다.
    */
-  const modal        = document.getElementById('projectModal');
-  const modalContent = document.getElementById('modalContent');
+  /* ─── 3. 배너 상세 모달 ───────────────────────────────────── */
 
-  /* 클릭한 버튼의 data-banner 값을 기준으로 해당 슬라이드 모달을 엽니다.
-   * (활성 슬라이드 기준이 아닌, 버튼이 포함된 슬라이드 기준) */
-  function openBannerModal(bannerNum) {
-    if (!modal || !modalContent) return;
+const modal = document.getElementById('projectModal');
+const modalContent = document.getElementById('modalContent');
 
-    const data = slideData[bannerNum];
-    if (!data) return;
+let bannerDetailCache = null;
 
-    modalContent.innerHTML = `
-      <div class="detail-content">
-        <div class="detail-content__header">
-          <p class="detail-content__eyebrow">${data.eyebrow}</p>
-          <h2>${data.title}</h2>
-          <p class="detail-content__summary">${data.summary}</p>
-        </div>
-      </div>
-    `;
+async function loadBannerContent(slideId) {
+  try {
+    if (!bannerDetailCache) {
+      const response = await fetch('banner.html');
 
-    modal.classList.add("is-open");
-    modal.setAttribute("aria-hidden", "false");
+      if (!response.ok) {
+        throw new Error('banner.html을 불러오지 못했습니다.');
+      }
 
-    if (typeof window.lockProjectModalScroll === "function") {
-      window.lockProjectModalScroll();
-    } else {
-      document.body.classList.add("modal-open");
+      const html = await response.text();
+      const parser = new DOMParser();
+
+      bannerDetailCache = parser.parseFromString(html, 'text/html');
     }
+
+    const content = bannerDetailCache.querySelector(
+      `#banner${slideId}Detail`
+    );
+
+    modalContent.innerHTML = content
+      ? content.outerHTML
+      : '<p class="modal-error">상세 정보를 찾을 수 없습니다.</p>';
+  } catch (error) {
+    console.error(error);
+
+    modalContent.innerHTML =
+      '<p class="modal-error">상세 내용을 불러오지 못했습니다.</p>';
+  }
+}
+
+function initBannerTabs() {
+  if (!modalContent) return;
+
+  const tabButtons = modalContent.querySelectorAll(
+    '.detail-content__tab-button'
+  );
+
+  const tabPanes = modalContent.querySelectorAll(
+    '.detail-content__tab-pane'
+  );
+
+  tabButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const tabName = button.dataset.tab;
+
+      tabButtons.forEach((btn) => {
+        btn.classList.remove('is-active');
+      });
+
+      tabPanes.forEach((pane) => {
+        pane.classList.remove('is-active');
+      });
+
+      button.classList.add('is-active');
+
+      const selectedPane = modalContent.querySelector(
+        `.detail-content__tab-pane[data-pane="${tabName}"]`
+      );
+
+      selectedPane?.classList.add('is-active');
+    });
+  });
+}
+
+async function openBannerModal(slideId) {
+  if (!modal || !modalContent) return;
+
+  await loadBannerContent(slideId);
+
+  initBannerTabs();
+
+  const modalDialog = modal.querySelector('.modal-dialog');
+
+  if (modalDialog) {
+    modalDialog.scrollTop = 0;
   }
 
-  /* .banner-modal-btn 클릭: 속한 슬라이드의 data-banner로 모달 열기 */
+  modal.classList.add('is-open');
+  modal.setAttribute('aria-hidden', 'false');
+
+  if (typeof window.lockProjectModalScroll === 'function') {
+    window.lockProjectModalScroll();
+  } else {
+    document.body.classList.add('modal-open');
+  }
+}
+
+/* .banner-modal-btn 클릭: 속한 슬라이드의 data-banner로 모달 열기 */
   bannerSection.querySelectorAll('.banner-modal-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       openBannerModal(parseInt(btn.dataset.banner, 10));
     });
   });
+  
+  
 
   /* ─── 4. GSAP 캐러셀 (기존 코드 유지) ────────────────────────────────
    * 이전/다음 버튼, 무한 루프, 휠 회전 애니메이션 — 변경 없음

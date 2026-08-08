@@ -40,20 +40,6 @@ if (menuToggle && mainNav) {
   });
 }
 
-const navLinks = document.querySelectorAll('#main-nav a[data-nav]');
-const navSections = [
-  { id: 'profile', nav: 'profile' },
-  { id: 'uiux-design', nav: 'uiux-design' },
-  { id: 'web-publish', nav: 'web-publish' },
-  { id: 'team', nav: 'team' }
-];
-
-function setActiveNav(navId) {
-  navLinks.forEach((link) => {
-    link.classList.toggle('active', link.dataset.nav === navId);
-  });
-}
-
 const mockupOrder = [6, 1, 4, 3, 5, 2, 7];
 const mobileOrder = [1, 2, 3, 4, 5, 7, 6];
 
@@ -78,27 +64,84 @@ const mobileOrder = [1, 2, 3, 4, 5, 7, 6];
   };
 gsap.registerPlugin(ScrollTrigger);
 
-function initPageAnimations() {
-  if (navLinks.length) {
-    navSections.forEach(({ id, nav }) => {
-      const section = document.getElementById(id);
-      if (!section) return;
+function initPageAnimations() {  
+  const skillProgress = document.querySelectorAll(".skill-progress");
 
-      ScrollTrigger.create({
-        trigger: section,
-        start: 'top center',
-        end: 'bottom center',
-        onEnter: () => setActiveNav(nav),
-        onEnterBack: () => setActiveNav(nav)
-      });
+  skillProgress.forEach((item) => {
+    const percent = Number(item.dataset.percent);
+    const circle = item.querySelector(".skill-progress-circle");
+
+    if (!circle) return;
+
+    const radius = circle.r.baseVal.value;
+    const circumference = 2 * Math.PI * radius;
+
+    const targetOffset =
+      circumference - (circumference * percent / 100);
+
+    // 처음엔 0%
+    gsap.set(circle, {
+      strokeDasharray: circumference,
+      strokeDashoffset: circumference
     });
 
-    const hash = window.location.hash.replace('#', '');
-    if (hash && navSections.some((item) => item.nav === hash)) {
-      setActiveNav(hash);
-    }
-  }
+    function playProgress() {
+      gsap.killTweensOf(circle);
 
+      gsap.fromTo(
+        circle,
+        {
+          strokeDashoffset: circumference
+        },
+        {
+          strokeDashoffset: targetOffset,
+          duration: 1.3,
+          delay: 4,
+          ease: "power2.out"
+        }
+      );
+    }
+    function replayProgress() {
+      gsap.killTweensOf(circle);
+
+      gsap.fromTo(
+        circle,
+        {
+          strokeDashoffset: circumference
+        },
+        {
+          strokeDashoffset: targetOffset,
+          duration: 1.3,
+          ease: "power2.out"
+        }
+      );
+    }
+
+    function resetProgress() {
+      gsap.killTweensOf(circle);
+
+      gsap.set(circle, {
+        strokeDashoffset: circumference
+      });
+    }
+
+    ScrollTrigger.create({
+      trigger: ".skill-box",
+      start: "top 85%",
+      end: "bottom 15%",
+
+      // 처음 아래로 들어올 때
+      onEnter: playProgress,
+
+      // 아래로 지나가면 초기화
+      onLeave: resetProgress,
+
+      // 아래에서 다시 위로 올라올 때
+      onEnterBack: replayProgress
+    });
+  });
+
+  
   let isMockupAnimating = false;
   let hasMockupPlayed = false;
 
