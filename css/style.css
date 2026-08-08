@@ -1484,9 +1484,6 @@ header {
 /* =================================================
   07. MOCKUP DETAIL CONTENT
 ================================================= */
-.mockup-detail--brand {
-  padding: 30px;
-}
 
 /* =================================================
   08. BANNER DETAIL CONTENT
@@ -1499,17 +1496,6 @@ header {
 .detail-content {
   display: flex;
   flex-direction: column;
-  gap: 32px;
-}
-
-.detail-content__header img{
-  width: min(1200px, calc(100%));
-}
-
-.detail-content__info-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 }
 
 /* 프로젝트 소개 탭: PC 2×2 그리드 */
