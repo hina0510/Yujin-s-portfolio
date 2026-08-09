@@ -17,12 +17,9 @@ if (menuToggle && mainNav) {
     menuToggle.setAttribute('aria-expanded', String(isOpen));
     menuToggle.setAttribute('aria-label', isOpen ? '메뉴 닫기' : '메뉴 열기');
   });
-
+  
   mainNav.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
-      if (link.dataset.nav) {
-        setActiveNav(link.dataset.nav);
-      }
       closeMenu();
     });
   });
