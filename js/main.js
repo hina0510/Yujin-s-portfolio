@@ -1,6 +1,78 @@
 const menuToggle = document.querySelector('.menu-toggle');
 const mainNav = document.querySelector('#main-nav');
 
+const navLinks = document.querySelectorAll(".nav a");
+const sections = document.querySelectorAll(
+  "#profile, #uiux-design, #web-publish, #team"
+);
+
+function setActiveNav() {
+  const headerHeight = document.querySelector("header").offsetHeight;
+  const scrollPoint = window.scrollY + headerHeight + 120;
+  const bottomPoint = window.innerHeight + window.scrollY;
+  const docHeight = document.documentElement.scrollHeight;
+
+  let currentId = "profile";
+
+  sections.forEach((section) => {
+    if (scrollPoint >= section.offsetTop) {
+      currentId = section.id;
+    }
+  });
+
+  if (bottomPoint >= docHeight - 5) {
+    currentId = "team";
+  }
+
+  navLinks.forEach((link) => {
+    link.classList.toggle("active", link.dataset.nav === currentId);
+  });
+}
+
+function changeActive(id) {
+  navLinks.forEach((link) => {
+    link.classList.remove('active');
+
+    if (link.dataset.nav === id) {
+      link.classList.add('active');
+    }
+  });
+}
+
+navLinks.forEach((link) => {
+  link.addEventListener('click', () => {
+    const id = link.dataset.nav;
+
+    if (id) {
+      changeActive(id);
+    }
+  });
+});
+
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+
+      if (entry.isIntersecting) {
+        changeActive(entry.target.id);
+      }
+
+    });
+  },
+  {
+    root: null,
+
+    // 화면 가운데 영역을 기준으로 판단
+    rootMargin: '-35% 0px -55% 0px',
+
+    threshold: 0
+  }
+);
+
+sections.forEach((section) => {
+  observer.observe(section);
+});
+
 function closeMenu() {
   if (!menuToggle || !mainNav) return;
 
