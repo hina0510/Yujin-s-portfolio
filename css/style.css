@@ -27,6 +27,12 @@ header {
   left: 0;
   width: 100%;
   z-index: 1000;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 30%,
+    rgba(255, 255, 255, 0.9) 70%,
+    rgba(255, 255, 255, 0) 100%
+  );
 }
 
 .header-inner {
