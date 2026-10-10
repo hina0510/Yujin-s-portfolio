@@ -6,108 +6,38 @@
     <title>Team Detail Content</title>
   </head>
   <body>
-    <!-- ========================================
-         TEAM 01 - Travel Planner 상세 콘텐츠
-         ======================================== -->
     <section id="team1Detail" class="detail-content">
-      <div class="mockup-hero">
-        <img src="image/seoripet-hero.png" alt="서리펫">
-      </div>
-
-      <!-- 탭 버튼 -->
-      <div class="detail-content__tabs">
-        <button class="detail-content__tab-button is-active" data-tab="overview">프로젝트 소개</button>
-        <button class="detail-content__tab-button" data-tab="features">주요 기능</button>
-        <button class="detail-content__tab-button" data-tab="demo">시연</button>
-        <button class="detail-content__tab-button" data-tab="team">팀 소개</button>
-      </div>
-
-      <!-- 탭 콘텐츠 -->
-      <div class="detail-content__tab-content">
-        <!-- 프로젝트 소개 탭 -->
-        <div class="detail-content__tab-pane is-active" data-pane="overview">
-          <div class="detail-content__info-grid">
-            <div class="detail-content__info-card">
-              <h3>프로젝트 소개</h3>
-              <p>
-                유기동물 입양 정보부터 후원과 봉사 참여까지 하나의 플랫폼에서 연결하여, 사용자가 여러 서비스를 오가지 않고 이용할 수 있도록 설계했습니다.
-              </p>
-            </div>
-            <div class="detail-content__info-card">
-              <h3>핵심 포인트</h3>
-              <p>직관적인 입양 정보 탐색, 후원·봉사 서비스 연계, 반응형 UI 경험을 중심으로 구성했습니다.</p>
-            </div>
-            <div class="detail-content__info-card">
-              <h3>사용 기술</h3>
-              <p>HTML, CSS, JavaScript, Chatgpt, Supabase</p>
-            </div>
-            <div class="detail-content__info-card">
-              <h3>프로젝트 정보</h3>
-              <p>기간 2주(6/1-6/12) · 팀 규모 4명</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 주요 기능 탭 -->
-        <div class="detail-content__tab-pane" data-pane="features">
-          <div class="detail-content__feature-list">
-            <!-- Feature 1: 메인 - 이미지 왼쪽, 설명 오른쪽으로 슬라이드 -->
-            <div class="detail-content__feature-item" data-direction="right">
-              <div class="detail-content__feature-img"></div>
-              <div class="detail-content__info-card">
-                <h3>메인</h3>
-                <p>서비스 메인 화면으로, 유기동물 입양 정보와 후원·봉사 서비스를 한눈에 탐색할 수 있습니다.</p>
-              </div>
-            </div>
-            <!-- Feature 2: 후원신청 - 이미지 오른쪽, 설명 아래로 슬라이드 -->
-            <div class="detail-content__feature-item" data-direction="down">
-              <div class="detail-content__feature-img"></div>
-              <div class="detail-content__info-card">
-                <h3>후원신청</h3>
-                <p>원하는 유기동물을 선택하여 간편하게 후원을 신청하고 관리할 수 있습니다.</p>
-              </div>
-            </div>
-            <!-- Feature 3: 후원보고 - 이미지 왼쪽, 설명 오른쪽으로 슬라이드 -->
-            <div class="detail-content__feature-item" data-direction="right">
-              <div class="detail-content__feature-img"></div>
-              <div class="detail-content__info-card">
-                <h3>후원보고</h3>
-                <p>후원 내역과 결과를 확인하고 상세 보고서를 열람할 수 있습니다.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 시연 탭 -->
-        <div class="detail-content__tab-pane" data-pane="demo">
-          <div class="detail-content__info-grid">
-            <div class="detail-content__info-card">
-              <h3>시연</h3>
-              <p>프로젝트의 주요 기능 시연 내용입니다.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 팀 소개 탭 -->
-        <div class="detail-content__tab-pane" data-pane="team">
-          <div class="detail-content__info-grid">
-            <div class="detail-content__info-card">
-              <h3>팀 소개</h3>
-              <p>기간 2주(6/1-6/12) · 팀 규모 4명</p>
-            </div>
-            <div class="detail-content__info-card">
-              <h3>팀 소개</h3>
-              <p>기간 2주(6/1-6/12) · 팀 규모 4명</p>
-            </div>
-            <div class="detail-content__info-card">
-              <h3>팀 소개</h3>
-              <p>기간 2주(6/1-6/12) · 팀 규모 4명</p>
-            </div>
-            <div class="detail-content__info-card">
-              <h3>팀 소개</h3>
-              <p>기간 2주(6/1-6/12) · 팀 규모 4명</p>
-            </div>
-          </div>
+      <div class="detail-image-wrap">
+        <img
+          src="image/seoripet-detail.png"
+          alt="서리펫 팀 프로젝트 상세페이지"
+          class="detail-image"
+        >
+        <div class="detail-links">
+          <a
+            href="SITE_URL"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="detail-link"
+          >
+            SITE ↗
+          </a>
+          <a
+            href="GITHUB_URL"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="detail-link"
+          >
+            Git ↗
+          </a>
+          <a
+            href="FIGMA_URL"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="detail-link"
+          >
+            Figma ↗
+          </a>
         </div>
       </div>
     </section>

@@ -99,46 +99,8 @@ document.addEventListener("DOMContentLoaded", () => {
     modalContent.innerHTML =
       content || '<p class="modal-error">상세 정보를 찾을 수 없습니다.</p>';
 
-    // 탭 기능 초기화
-    initTabs();
-
     // 모달 표시
     showModal();
-  };
-
-  /**
-   * 탭 기능 초기화
-   * 탭 버튼의 클릭 이벤트를 등록합니다.
-   */
-  const initTabs = () => {
-    const tabButtons = modalContent.querySelectorAll(
-      ".detail-content__tab-button",
-    );
-    const tabPanes = modalContent.querySelectorAll(".detail-content__tab-pane");
-
-    // 각 탭 버튼에 클릭 이벤트 등록
-    tabButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const tabName = button.getAttribute("data-tab");
-
-        // 모든 탭 버튼에서 active 클래스 제거
-        tabButtons.forEach((btn) => btn.classList.remove("is-active"));
-
-        // 모든 탭 패널 숨기기
-        tabPanes.forEach((pane) => pane.classList.remove("is-active"));
-
-        // 선택된 탭 버튼에 active 클래스 추가
-        button.classList.add("is-active");
-
-        // 선택된 탭 패널 표시
-        const selectedPane = modalContent.querySelector(
-          `.detail-content__tab-pane[data-pane="${tabName}"]`,
-        );
-        if (selectedPane) {
-          selectedPane.classList.add("is-active");
-        }
-      });
-    });
   };
 
   let modalOpenScrollY = 0;

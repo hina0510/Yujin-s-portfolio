@@ -58,7 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!modal || !modalContent) return;
 
     await loadMockupContent(mockupId);
-    initMockupTabs();
 
     resetScroll();
 
@@ -74,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 100);
   };
 
-  document.querySelectorAll('.mockup-item').forEach((item) => {
+  document.querySelectorAll('.mockup-item[data-clickable]').forEach((item) => {
     item.addEventListener('click', (e) => {
       e.preventDefault();
 
@@ -87,26 +86,102 @@ document.addEventListener('DOMContentLoaded', () => {
 
     item.style.cursor = 'pointer';
   });
-});
 
-function initMockupTabs() {
-  const tabButtons = modalContent.querySelectorAll(".detail-content__tab-button");
-  const tabPanes = modalContent.querySelectorAll(".detail-content__tab-pane");
+// Key Features Accordion
+// 동적으로 삽입되는 mockup 콘텐츠 대응
 
-  tabButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const tabName = button.dataset.tab;
+  const canHover = window.matchMedia(
+    "(hover: hover) and (pointer: fine)"
+  ).matches;
 
-      tabButtons.forEach((btn) => btn.classList.remove("is-active"));
-      tabPanes.forEach((pane) => pane.classList.remove("is-active"));
 
-      button.classList.add("is-active");
+  // 특정 feature 열기
+  function openFeature(target) {
 
-      const selectedPane = modalContent.querySelector(
-        `.detail-content__tab-pane[data-pane="${tabName}"]`
-      );
+    // 현재 모달 안의 feature만 찾음
+    const featureContainer = target.closest(".key-features");
 
-      selectedPane?.classList.add("is-active");
+    if (!featureContainer) return;
+
+    const featureItems =
+      featureContainer.querySelectorAll(".feature-item");
+
+
+    // 기존 active 제거
+    featureItems.forEach((item) => {
+      item.classList.remove("active");
     });
+
+
+    // 현재 항목 열기
+    target.classList.add("active");
+  }
+
+
+  /* =========================
+    PC - Hover
+  ========================= */
+
+  if (canHover) {
+
+    modalContent.addEventListener("mouseover", (e) => {
+
+      const item = e.target.closest(".feature-item");
+
+      if (!item) return;
+
+      // 같은 feature-item 내부에서 이동한 경우 무시
+      if (
+        e.relatedTarget &&
+        item.contains(e.relatedTarget)
+      ) {
+        return;
+      }
+
+      openFeature(item);
+
+    });
+
+  }
+
+
+  /* =========================
+    Mobile / Tablet - Click
+  ========================= */
+
+  modalContent.addEventListener("click", (e) => {
+
+    // PC에서는 클릭 이벤트 사용 X
+    if (canHover) return;
+
+    const summary = e.target.closest(".feature-summary");
+
+    if (!summary) return;
+
+    const item = summary.closest(".feature-item");
+
+    if (!item) return;
+
+
+    const featureContainer =
+      item.closest(".key-features");
+
+    const featureItems =
+      featureContainer.querySelectorAll(".feature-item");
+
+
+    const isOpen =
+      item.classList.contains("active");
+
+
+    featureItems.forEach((el) => {
+      el.classList.remove("active");
+    });
+
+
+    if (!isOpen) {
+      item.classList.add("active");
+    }
+
   });
-}
+});

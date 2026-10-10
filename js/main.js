@@ -252,6 +252,12 @@ function initPageAnimations() {
         index === 0 ? 0 : "-=0.45"
       );
     });
+    mockupTimeline.to('.mockup-guide', {
+      opacity: 1,
+      y: 0,
+      duration: 0.7,
+      ease: 'power2.out'
+    });
   }
 
   ScrollTrigger.create({

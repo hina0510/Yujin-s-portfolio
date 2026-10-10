@@ -139,46 +139,10 @@ async function loadBannerContent(slideId) {
   }
 }
 
-function initBannerTabs() {
-  if (!modalContent) return;
-
-  const tabButtons = modalContent.querySelectorAll(
-    '.detail-content__tab-button'
-  );
-
-  const tabPanes = modalContent.querySelectorAll(
-    '.detail-content__tab-pane'
-  );
-
-  tabButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      const tabName = button.dataset.tab;
-
-      tabButtons.forEach((btn) => {
-        btn.classList.remove('is-active');
-      });
-
-      tabPanes.forEach((pane) => {
-        pane.classList.remove('is-active');
-      });
-
-      button.classList.add('is-active');
-
-      const selectedPane = modalContent.querySelector(
-        `.detail-content__tab-pane[data-pane="${tabName}"]`
-      );
-
-      selectedPane?.classList.add('is-active');
-    });
-  });
-}
-
 async function openBannerModal(slideId) {
   if (!modal || !modalContent) return;
 
   await loadBannerContent(slideId);
-
-  initBannerTabs();
 
   const modalDialog = modal.querySelector('.modal-dialog');
 
