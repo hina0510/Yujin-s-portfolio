@@ -429,7 +429,7 @@ header {
 /* Profile-box */
 .profile-img {
   width: 100%;
-  aspect-ratio: 3 / 7;
+  aspect-ratio: 7 / 10;
   border-radius: 1.4rem;
   overflow: hidden;
   background-color: #fff;
