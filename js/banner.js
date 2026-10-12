@@ -4,57 +4,6 @@
     window.portfolioScrollPosition = 0;
   }
 
-  /* ─── 1. 슬라이드별 데이터 정의 ───────────────────────────────────────
-   * 수정 위치: banner.js 상단
-   * 각 슬라이드의 썸네일 이미지 배열과 모달 내용을 여기서 관리합니다.
-   * thumbs: .banner-thumb-item 3개에 순서대로 삽입할 이미지
-   * title / eyebrow / summary: 모달에 표시할 텍스트
-   */
-  const slideData = {
-    1: {
-      thumbs: [
-        { src: 'image/HTML.png', alt: 'HTML' },
-        { src: 'image/CSS.png', alt: 'CSS' },
-        { src: 'image/CSS.png', alt: 'CSS' }
-      ]
-    },
-    2: {
-      thumbs: [
-        { src: 'image/HTML.png', alt: 'HTML' },
-        { src: 'image/CSS.png', alt: 'CSS' },
-        { src: 'image/CSS.png', alt: 'CSS' }
-      ]
-    },
-    3: {
-      thumbs: [
-        { src: 'image/HTML.png', alt: 'HTML' },
-        { src: 'image/CSS.png', alt: 'CSS' },
-        { src: 'image/CSS.png', alt: 'CSS' }
-      ]
-    },
-    4: {
-      thumbs: [
-        { src: 'image/HTML.png', alt: 'HTML' },
-        { src: 'image/CSS.png', alt: 'CSS' },
-        { src: 'image/CSS.png', alt: 'CSS' }
-      ]
-    },
-    5: {
-      thumbs: [
-        { src: 'image/HTML.png', alt: 'HTML' },
-        { src: 'image/CSS.png', alt: 'CSS' },
-        { src: 'image/CSS.png', alt: 'CSS' }
-      ]
-    },
-    6: {
-      thumbs: [
-        { src: 'image/HTML.png', alt: 'HTML' },
-        { src: 'image/CSS.png', alt: 'CSS' },
-        { src: 'image/CSS.png', alt: 'CSS' }
-      ]
-    }
-  };
-
   // 스크롤바 너비 계산
   const getScrollbarWidth = () => {
     const outer = document.createElement('div');
@@ -77,26 +26,6 @@
   const slides   = [...bannerSection.querySelectorAll('.banner-slide')];
   const prevBtn  = bannerSection.querySelector('.banner-prev');
   const nextBtn  = bannerSection.querySelector('.banner-next');
-
-  /* ─── 2. 슬라이드별 썸네일 렌더링 ────────────────────────────────────
-   * 수정 위치: banner.js — 초기화 시 각 .banner-thumb-item에 이미지 삽입
-   * slideData[슬라이드 번호].thumbs 배열 순서대로 이미지를 교체합니다.
-   */
-  slides.forEach(slide => {
-    const num  = parseInt(slide.dataset.slide, 10);
-    const data = slideData[num];
-    if (!data) return;
-
-    slide.querySelectorAll('.banner-thumb-item').forEach((item, i) => {
-      const thumb = data.thumbs[i];
-      if (!thumb) return;
-      item.textContent = '';
-      const img = document.createElement('img');
-      img.src = thumb.src;
-      img.alt = thumb.alt;
-      item.appendChild(img);
-    });
-  });
 
   /* ─── 3. 공통 모달 레이어 재사용 (#projectModal) ─────────────────────
    * 수정 위치: banner.js — 기존 .banner-modal 대신 index.html의 공통 모달 사용
